@@ -1,11 +1,13 @@
 package com.eCommerce.entity;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -32,4 +34,8 @@ public class Product {
 	private Category category;
 	
 	private Integer price;
+	
+	@Lob
+	@Column
+	private String photo;
 }

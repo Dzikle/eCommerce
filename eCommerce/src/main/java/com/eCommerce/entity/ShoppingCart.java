@@ -24,10 +24,11 @@ public class ShoppingCart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer id;
-	@ManyToMany(cascade = CascadeType.ALL)
-	public List<Product> products;
+	@ManyToOne(cascade = CascadeType.ALL)
+	public Product product;
 	@ManyToOne(cascade = CascadeType.ALL)
 	public User user;
+	private Integer quantity;
 	
 	
 }

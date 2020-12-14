@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous">
+<title>Unusual</title>
+</head>
+
+<body>
+
+	<div class="container">
+	
+
+
+
+		<form th:action="@{product/save}" th:object="${product}" class="form-horizontal" method="post" enctype="multipart/form-data">
+		
+			
+				<input type="text" th:field="*{name}" placeholder="Name">
+
+				<a>Choose Color</a>
+				 <select name="color" th:field="*{color}">
+					<option th:each="colorOpt : ${T(com.eCommerce.entity.Color).values()}"	th:value="${colorOpt}" th:text="${colorOpt.displayValue}"></option>
+				</select> 
+				
+				<a>Choose gender</a>
+				
+				 <select name="gender" th:field="*{gender}">
+					<option	th:each="gendeOpt : ${T(com.eCommerce.entity.Gender).values()}"th:value="${gendeOpt}" th:text="${gendeOpt.displayValue}"></option>
+				</select> 
+				
+				<input type="text" th:field="*{price}" placeholder="Price">
+				<input type="text" th:field="*{category}" placeholder="Category">
+
+
+				<div class="form-group">
+					<label for="exampleFormControlFile1">Upload image:</label> 
+					<input type="file"  name="file" class="form-control-file" id="exampleFormControlFile1">
+				</div>
+
+						<button type="submit" class="btn btn-info col-2">Save Product</button>
+
+
+		</form>
+
+
+
+
+
+	</div>
+
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+		crossorigin="anonymous">
+		
+	</script>
+</body>
+
+</html>
