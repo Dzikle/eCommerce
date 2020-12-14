@@ -2,7 +2,9 @@ package com.eCommerce.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,22 +30,25 @@ public class User {
 	private String firstName;
 	private String lastName;
 	
-	public User(String firstName, String lastName, String email, String password, Address address, List<Role> roles) {
+	
+
+	public String email;
+	public String password;
+	@OneToOne(cascade = CascadeType.ALL)
+	public Address address;
+//	@ManyToMany
+//	private List<Role> roles;
+	@Enumerated
+	private RoleName role;
+	public User(String firstName, String lastName, String email, String password, Address address, RoleName role) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.address = address;
-		this.roles = roles;
+		this.role = role;
 	}
-	public String email;
-	public String password;
-	@OneToOne
-	public Address address;
-	@ManyToMany
-	private List<Role> roles;
-	
 	
 
 }

@@ -6,6 +6,9 @@ import javax.persistence.Table;
 public enum RoleName {
 	
 	ROLE_ADMIN,
-	ROLE_USER
+	ROLE_USER;
+
+	
+	
 
 }
