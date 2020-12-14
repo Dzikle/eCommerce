@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 <meta charset="UTF-8">
@@ -18,27 +18,32 @@
 	
 
 
-
-		<form th:action="@{product/save}" th:object="${product}" class="form-horizontal" method="post" enctype="multipart/form-data">
-		
-			
+		<div class="form-group">
+		<form th:action="@{/save}" th:object="${product}" class="form-horizontal" method="post" enctype="multipart/form-data">
+				<div class="form-group">
 				<input type="text" th:field="*{name}" placeholder="Name">
-
-				<a>Choose Color</a>
+				</div>
+				<div class="form-group">
+				<input type="text" th:field="*{price}" placeholder="Price">
+				</div>
+				<div class="form-group">
+				<a>Color</a>
 				 <select name="color" th:field="*{color}">
 					<option th:each="colorOpt : ${T(com.eCommerce.entity.Color).values()}"	th:value="${colorOpt}" th:text="${colorOpt.displayValue}"></option>
 				</select> 
-				
-				<a>Choose gender</a>
-				
+				</div>
+				<div class="form-group">
+				<a> gender</a>
 				 <select name="gender" th:field="*{gender}">
 					<option	th:each="gendeOpt : ${T(com.eCommerce.entity.Gender).values()}"th:value="${gendeOpt}" th:text="${gendeOpt.displayValue}"></option>
 				</select> 
-				
-				<input type="text" th:field="*{price}" placeholder="Price">
-				<input type="text" th:field="*{category}" placeholder="Category">
-
-
+				</div>
+				<div class="form-group">
+				<a> Category</a>
+				 <select name="category" th:field="*{category}">
+					<option	th:each="catOpt : ${T(com.eCommerce.entity.Category).values()}"th:value="${catOpt}" th:text="${catOpt.displayValue}"></option>
+				</select>
+				</div>
 				<div class="form-group">
 					<label for="exampleFormControlFile1">Upload image:</label> 
 					<input type="file"  name="file" class="form-control-file" id="exampleFormControlFile1">
@@ -48,7 +53,7 @@
 
 
 		</form>
-
+</div>
 
 
 

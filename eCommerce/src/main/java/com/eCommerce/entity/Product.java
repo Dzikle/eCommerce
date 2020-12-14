@@ -30,7 +30,7 @@ public class Product {
 	private Color color;
 	@Enumerated
 	private Gender gender;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@Enumerated
 	private Category category;
 	
 	private Integer price;

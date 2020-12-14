@@ -28,7 +28,7 @@ public class ProductController {
 		model.addAttribute("product", product);
 		return"ProductForm";
 	}
-	@PostMapping("product/save")
+	@PostMapping("/save")
 	public String saveProduct(@ModelAttribute Product product,MultipartFile file) {
 		
 		  String fileName = StringUtils.cleanPath(file.getOriginalFilename());

@@ -1,5 +1,8 @@
 package com.eCommerce.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 public enum Color {
 	 BLACK("Black"), 
 	    BLUE("Blue"), 
