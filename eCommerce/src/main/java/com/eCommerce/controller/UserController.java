@@ -16,6 +16,12 @@ public class UserController {
 	@Autowired
 	UserRepository userRepo;
 	
+	@GetMapping("/")
+	public String Homepage(Model model) {
+		
+		return "index";
+	}
+	
 	@GetMapping("/user/form")
 	public String getUserForm(Model model) {
 		User user = new User();
@@ -28,6 +34,11 @@ public class UserController {
 		user.setRole(com.eCommerce.entity.RoleName.ROLE_USER);
 		userRepo.save(user);
 		return"userForm";
+	}
+	
+	@GetMapping("/login")
+	public String LoginPage(Model model) {
+	return "login";
 	}
 
 }
