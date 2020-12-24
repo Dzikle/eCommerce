@@ -1,6 +1,7 @@
 package com.eCommerce.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.eCommerce.entity.User;
 import com.eCommerce.repository.UserRepository;
+import com.eCommerce.services.UsersDetails;
 
 @Controller
 public class UserController {
@@ -17,8 +19,9 @@ public class UserController {
 	UserRepository userRepo;
 	
 	@GetMapping("/")
-	public String Homepage(Model model) {
-		
+	public String Homepage(Model model,@AuthenticationPrincipal UsersDetails userD) {
+		User user = userRepo.findByEmail(userD.getUsername());
+		model.addAttribute("user", user);
 		return "index";
 	}
 	

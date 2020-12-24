@@ -2,7 +2,6 @@
   background-color: transparent;
   width: 300px;
   height: 200px;
-  border: 1px solid #f1f1f1;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
 
@@ -38,7 +37,30 @@
 
 /* Style the back side */
 .flip-card-back {
-  background-color: dodgerblue;
-  color: white;
+  color: #42423e;
   transform: rotateY(180deg);
+}
+.img-hover-zoom--point-zoom img {
+  transform-origin: 65% 75%;
+  transition: transform 1s, filter .5s ease-out;
+}
+
+/* The Transformation */
+.img-hover-zoom--point-zoom:hover img {
+  transform: scale(5);
+}
+.img-hover-zoom {
+  height: 80px; /* [1.1] Set it as per your need */
+  overflow: hidden; /* [1.2] Hide the overflowing of child elements */
+}
+
+/* [2] Transition property for smooth transformation of images */
+.img-hover-zoom img {
+  transition: transform .3s ease;
+}
+
+/* [3] Finally, transforming the image when container gets hovered */
+.img-hover-zoom:hover img {
+	 height: 180px;
+  transform: scale(2);
 }
