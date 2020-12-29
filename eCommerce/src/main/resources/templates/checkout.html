@@ -6,14 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/resources/css/eCommerce.css}" />
   <title>Unusual</title>
 </head>
 
 <body>
 
   <div class="container">
-     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/}">Unusual</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -68,42 +67,43 @@
     </nav>
 
 
-<form action="/filterByGernder"  method="get">
-<div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <label class="input-group-text" for="inputGroupSelect01">Options</label>
-  </div>
-  <select name="gender" onchange="this.form.submit()" class="custom-select" id="inputGroupSelect01">
-    <option selected>Gender...</option>
-    <option  value="MALE">Male</option>
-    <option value="FEMALE">Female</option>
-    <option value="UNISEX">Unisex</option>
-  </select>
-</div>
-</form>
 
- 
-  
-<div class="row">
 
-<div class="flip-card" th:each="product : ${products}">
-  <div class="flip-card-inner">
-    <div class="flip-card-front">
-      <img th:src="*{'data:image/png;base64,'+{product.photo}}" alt="${product.name}" style="width:300px;height:200px;">
+
+<!--     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel"> -->
+<!--   <ol class="carousel-indicators"> -->
+<!--     <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li> -->
+<!--     <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li> -->
+<!--     <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li> -->
+<!--   </ol> -->
+<!--   <div class="carousel-inner"> -->
+<!--     <div class="carousel-item active"> -->
+<!--       <img th:src="*{'data:image/png;base64,'+{product.image}}" class="d-block w-100" alt="..."> -->
+<!--     </div> -->
+<!--     <div class="carousel-item"> -->
+<!--       <img src="..." class="d-block w-100" alt="..."> -->
+<!--     </div> -->
+<!--     <div class="carousel-item"> -->
+<!--       <img src="..." class="d-block w-100" alt="..."> -->
+<!--     </div> -->
+<!--   </div> -->
+<!--   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev"> -->
+<!--     <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+<!--     <span class="visually-hidden">Previous</span> -->
+<!--   </a> -->
+<!--   <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next"> -->
+<!--     <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+<!--     <span class="visually-hidden">Next</span> -->
+<!--   </a> -->
+<!-- </div> -->
+
+
+      <div class="col-sm-6">
+        One of three columns
+      </div>
+
+
     </div>
-    <div class="flip-card-back">
-      <h1 th:text="${product.name}"></h1>
-      <h6 th:text="${product.gender}"></h6>
-      <h6 th:text="${product.price} +' '+ мкд"></h6>
-      <h6 th:text="color +' '+${product.color}"></h6>
-      <a type="button" class="btn btn-warning" th:href="@{/delete/product/{id}(id=${product.id})}">Delete</a>
-      <a type="button" class="btn btn-warning" th:href="@{/add/product/{id}(id=${product.id})}">Add to cart</a>
-    </div>
-  </div>
-</div>
-  
-    </div>
-  
   </div>
 
 

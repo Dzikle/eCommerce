@@ -24,7 +24,6 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
 	private String name;
 	@Enumerated
 	private Color color;
@@ -34,7 +33,6 @@ public class Product {
 	private Category category;
 	
 	private Integer price;
-	
 	@Lob
 	@Column
 	private String photo;
