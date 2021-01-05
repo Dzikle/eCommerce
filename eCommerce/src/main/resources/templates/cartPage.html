@@ -92,7 +92,7 @@
   <tbody>
     <tr th:each="mapEntry: ${cart}">
         <td th:text="${mapEntry.key.name}"></td>
-         <td th:text="${mapEntry.key.color}"></td>
+         <td th:each="color :${mapEntry.key.colors}"  th:text="${color.displayValue}"></td>
           <td th:text="${mapEntry.key.price}+' mkd'"></td>
           <td ><a type="button" class="btn btn-secondary btn-sm" th:href="@{/remove/{id}(id=${mapEntry.key.id})}">-</a>
           

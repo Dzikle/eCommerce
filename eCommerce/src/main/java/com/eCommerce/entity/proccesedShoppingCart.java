@@ -28,7 +28,7 @@ public class proccesedShoppingCart {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer id;
 	@ManyToMany(cascade = CascadeType.ALL)
-	public List<Product> products;
+	public List<soldProduct> products;
 	@ManyToOne(cascade = CascadeType.ALL)
 	public User user;
 	@OneToOne(cascade = CascadeType.ALL)
@@ -42,7 +42,7 @@ public class proccesedShoppingCart {
 	
 	private Integer total;
 
-	public proccesedShoppingCart(List<Product> products, User user, Address adress, String requests,
+	public proccesedShoppingCart(List<soldProduct> products, User user, Address adress, String requests,
 			@Email String email, String payment, Integer total) {
 		super();
 		this.products = products;

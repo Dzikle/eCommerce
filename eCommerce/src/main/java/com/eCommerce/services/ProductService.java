@@ -1,5 +1,6 @@
 package com.eCommerce.services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -59,11 +60,12 @@ public class ProductService {
 
 	public List<Product> filterByGender(String gender) {
 		List<Product> products = prodRepo.findAll();
+		List<Product> filtProducts = new ArrayList<>();
 		for (Product product : products) {
-			if (!product.getGender().toString().equals(gender)) {
-				products.remove(product);
+			if (product.getGender().toString().equals(gender)) {
+				filtProducts.add(product);
 			}
 		}
-		return products;
+		return filtProducts;
 	}
 }

@@ -95,7 +95,7 @@
       <h1 th:text="${product.name}"></h1>
       <h6 th:text="${product.gender}"></h6>
       <h6 th:text="${product.price} +' '+ мкд"></h6>
-      <h6 th:text="color +' '+${product.color}"></h6>
+      <h6 th:each="color :${product.colors}" th:text="${color.displayValue}"></h6>
       <a type="button" class="btn btn-warning" th:href="@{/delete/product/{id}(id=${product.id})}">Delete</a>
       <a type="button" class="btn btn-warning" th:href="@{/add/product/{id}(id=${product.id})}">Add to cart</a>
     </div>

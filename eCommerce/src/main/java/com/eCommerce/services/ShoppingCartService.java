@@ -10,6 +10,7 @@ import com.eCommerce.entity.Product;
 import com.eCommerce.entity.ShoppingCart;
 import com.eCommerce.entity.User;
 import com.eCommerce.entity.proccesedShoppingCart;
+import com.eCommerce.entity.soldProduct;
 import com.eCommerce.repository.ProccessedCartRepository;
 
 @Service
@@ -34,6 +35,8 @@ public class ShoppingCartService {
 			proCart.setEmail(user.getEmail());
 		}
 		List<Product> products = cart.getProduct().keySet().stream().collect(Collectors.toList());
+		
+		List<soldProduct> soldProducts =
 
 		proccesedShoppingCart userCart = new proccesedShoppingCart(products, user, proCart.getAdress(),
 				proCart.getRequests(), proCart.getEmail(), proCart.getPayment(), total);

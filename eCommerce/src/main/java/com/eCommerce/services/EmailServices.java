@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.eCommerce.email.Message;
 import com.eCommerce.entity.Product;
 import com.eCommerce.entity.proccesedShoppingCart;
+import com.eCommerce.entity.soldProduct;
 import com.eCommerce.repository.EmailRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,8 +48,8 @@ public class EmailServices {
 		Message message = new Message();
 		String listProducts = "The Order: \r\n";
 		
-		for (Product product : proCart.getProducts()) {
-			listProducts=(new StringBuilder()).append(listProducts).append(product.getName() +" = ").append(product.getPrice()).append("\r\n").toString();  
+		for (soldProduct product : proCart.getProducts()) {
+			listProducts=(new StringBuilder()).append(listProducts).append(product.getProduct().getName() +" = ").append(product.getProduct().getPrice()).append("\r\n").toString();  
 		}
 		message.setToEmail(proCart.getEmail());
 		message.setName("Order details for " + proCart.getUser().getFirstName());
