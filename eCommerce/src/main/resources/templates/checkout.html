@@ -2,20 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-	crossorigin="anonymous">
-<title>Unusual</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <title>Unusual</title>
 </head>
 
 <body>
 
-	<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/}">Unusual</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -68,57 +65,52 @@
               </ul>
             </li>
     </nav>
-	
-	
-	<h1>CREATE USER</h1>
- <div th:if="${param.success}">
-     <div class="alert alert-info">You've successfully registered !!!</div>
+
+
+
+
+
+<!--     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel"> -->
+<!--   <ol class="carousel-indicators"> -->
+<!--     <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li> -->
+<!--     <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li> -->
+<!--     <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li> -->
+<!--   </ol> -->
+<!--   <div class="carousel-inner"> -->
+<!--     <div class="carousel-item active"> -->
+<!--       <img th:src="*{'data:image/png;base64,'+{product.image}}" class="d-block w-100" alt="..."> -->
+<!--     </div> -->
+<!--     <div class="carousel-item"> -->
+<!--       <img src="..." class="d-block w-100" alt="..."> -->
+<!--     </div> -->
+<!--     <div class="carousel-item"> -->
+<!--       <img src="..." class="d-block w-100" alt="..."> -->
+<!--     </div> -->
+<!--   </div> -->
+<!--   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev"> -->
+<!--     <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+<!--     <span class="visually-hidden">Previous</span> -->
+<!--   </a> -->
+<!--   <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next"> -->
+<!--     <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+<!--     <span class="visually-hidden">Next</span> -->
+<!--   </a> -->
+<!-- </div> -->
+
+
+      <div class="col-sm-6">
+        One of three columns
+      </div>
+
+
     </div>
-
-		<div class="form-group">
-		<form th:action="@{/signUpForm}" th:object="${user}" class="form-horizontal" method="post" enctype="multipart/form-data">
-				<div class="form-group">
-				<input type="text" th:field="*{firstName}" placeholder="First Name">
-				<input type="text" th:field="*{lastName}" placeholder="Last Name">
-				</div>
-				<div class="form-group">
-				<input type="password" th:field="*{password}" placeholder="Password">
-				</div>
-				<div class="form-group">
-				<input type="text" th:field="*{email}" placeholder="Email">
-				</div>
-				<div class="form-group">
-				<label>City</label>
-				<input type="text" th:field="*{address.city}" placeholder="City">
-				<label>Street</label>
-				<input type="text" th:field="*{address.street}" placeholder="Street">
-				<label>Zip</label>
-				<input type="text" th:field="*{address.zip}" placeholder="Zip">
-				<label>Country</label>
-				<input type="text" th:field="*{address.country}" placeholder="Country">
-				</div>
-			
-				
-
-						<button type="submit" class="btn btn-info col-2">Save User</button>
-
-
-		</form>
-</div>
+  </div>
 
 
 
-
-	</div>
-
-
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-		crossorigin="anonymous">
-		
-	</script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+  </script>
 </body>
 
 </html>

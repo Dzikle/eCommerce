@@ -15,50 +15,7 @@
 <body>
 
 	<div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}">Unusual</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-6">
-            <li class="nav-item">
-              <a class="nav-link active" th:href="@{/}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/products}">Products</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Dropdown
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" th:href="@{/product/create}">Add Product</a></li>
-                <li><a class="dropdown-item" th:href="@{/user/form}">Add User</a></li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-              </ul>
-            </li>
-          </ul>
-          
-        </div>
-      </div>
-      <div class="navbar-nav me-auto mb-2 mb-lg-6">
-      <div class="nav-item">
-     <a class="nav-link active"  th:text="${user.firstName}" th:href="@{/show/cart}">User</a></div></div>
-    </nav>
-
-	
+     <div th:insert="fragments/header :: header"></div>
 
 
 		<div class="form-group">
@@ -70,10 +27,35 @@
 				<input type="text" th:field="*{price}" placeholder="Price">
 				</div>
 				<div class="form-group">
-				<a>Color</a>
-				 <select name="color" th:field="*{color}">
-					<option th:each="colorOpt : ${T(com.eCommerce.entity.Color).values()}"	th:value="${colorOpt}" th:text="${colorOpt.displayValue}"></option>
-				</select> 
+				<p>
+				
+				<div class="input-group mb-3">
+				<div class="input-group-prepend">
+   		 <label class="input-group-text" for="inputGroupSelect01">Colors</label>
+       		 <input type="checkbox" name="colors"
+       		   		  th:each="colorOpt : ${T(com.eCommerce.entity.Color).values()}"
+         		 	  th:text="${colorOpt.displayValue}"
+       			 	    th:value="${colorOpt}"
+        		 	   th:field="*{colors}" />
+  				 </label>
+  				 </div>
+  				 </div>
+  				 <div class="input-group mb-3">
+  				 <div class="input-group-prepend">
+  				<label class="input-group-text" for="inputGroupSelect01">Sizes</label>
+       		 <input type="checkbox" name="sizes"
+       		   		  th:each="sizeOpt : ${T(com.eCommerce.entity.Size).values()}"
+         		 	  th:text="${sizeOpt.displayValue}"
+       			 	    th:value="${sizeOpt}"
+        		 	   th:field="*{sizes}" />
+  				 </label>
+  				 </div>
+  				 </div>
+</p>
+<!-- 				<a>Color</a> -->
+<!-- 				 <select name="color" th:field="*{color}"> -->
+<!-- 					<option th:each="colorOpt : ${T(com.eCommerce.entity.Color).values()}"	th:value="${colorOpt}" th:text="${colorOpt.displayValue}"></option> -->
+<!-- 				</select>  -->
 				</div>
 				<div class="form-group">
 				<a> gender</a>
@@ -87,10 +69,20 @@
 					<option	th:each="catOpt : ${T(com.eCommerce.entity.Category).values()}"th:value="${catOpt}" th:text="${catOpt.displayValue}"></option>
 				</select>
 				</div>
+				
 				<div class="form-group">
-					<label for="exampleFormControlFile1">Upload image:</label> 
+					<label for="exampleFormControlFile1">Upload front image:</label> 
 					<input type="file"  name="file" class="form-control-file" id="exampleFormControlFile1">
 				</div>
+				<div class="form-group">
+					<label for="exampleFormControlFile1">Upload back image:</label> 
+					<input type="file"  name="file1" class="form-control-file" id="exampleFormControlFile1">
+				</div>
+				<div class="form-group">
+					<label for="exampleFormControlFile1">Upload additional image:</label> 
+					<input type="file"  name="file2" class="form-control-file" id="exampleFormControlFile1">
+				</div>
+				
 
 						<button type="submit" class="btn btn-info col-2">Save Product</button>
 

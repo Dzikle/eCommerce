@@ -1,5 +1,7 @@
 package com.eCommerce.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -8,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.eCommerce.entity.Product;
 import com.eCommerce.entity.User;
+import com.eCommerce.repository.ProductRepository;
 import com.eCommerce.repository.UserRepository;
 import com.eCommerce.services.UsersDetails;
 
@@ -18,9 +22,14 @@ public class UserController {
 	@Autowired
 	UserRepository userRepo;
 	
+	@Autowired
+	ProductRepository prodRepo;
+	
 	@GetMapping("/")
 	public String Homepage(Model model,@AuthenticationPrincipal UsersDetails userD) {
 		User user = userRepo.findByEmail(userD.getUsername());
+		List<Product> products=prodRepo.findAll();
+		model.addAttribute("products", products);
 		model.addAttribute("user", user);
 		return "index";
 	}
@@ -43,5 +52,7 @@ public class UserController {
 	public String LoginPage(Model model) {
 	return "login";
 	}
+	
+	
 
 }

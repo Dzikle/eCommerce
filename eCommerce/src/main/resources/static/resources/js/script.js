@@ -9,3 +9,6 @@ $( "#failure-btn" ).click(function() {
 $( "#warning-btn" ).click(function() {
   $( "div.warning" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
 });
+var slideIndex = 1;
+showSlides(slideIndex);
+

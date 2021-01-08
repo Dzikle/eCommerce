@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eCommerce.entity.Product;
 import com.eCommerce.entity.User;
+import com.eCommerce.entity.soldProduct;
 import com.eCommerce.repository.ProductRepository;
+import com.eCommerce.repository.SoldProductRepository;
 import com.eCommerce.repository.UserRepository;
+import com.eCommerce.services.ProductService;
 import com.eCommerce.services.UsersDetails;
 @Controller
 public class ProductController {
@@ -29,6 +33,12 @@ public class ProductController {
 	
 	@Autowired
 	UserRepository userRepo;
+	
+	@Autowired
+	ProductService prodServ;
+	
+	@Autowired
+	SoldProductRepository soldProd;
 	
 	
 	@GetMapping("product/create")
@@ -40,19 +50,12 @@ public class ProductController {
 		return"ProductForm";
 	}
 	@PostMapping("/save")
-	public String saveProduct(@ModelAttribute Product product,MultipartFile file) {
-		
-		  String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-	        if(fileName.contains("..")) {
-	        	System.out.println("not a valid file");
-	        }
-	        try {
-				product.setPhoto(Base64.getEncoder().encodeToString(file.getBytes()));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		
-		prodRepo.save(product);
+	public String saveProduct(@ModelAttribute Product product,MultipartFile file,MultipartFile file1,MultipartFile file2) {
+		try {
+			prodServ.addPhotos(file,file1,file2,product);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return "redirect:product/create";
 	}
 	@GetMapping
@@ -68,6 +71,7 @@ public class ProductController {
 		model.addAttribute("products", products);
 		User user = userRepo.findByEmail(userD.getUsername());
 		model.addAttribute("user", user);
+		model.addAttribute("soldProduct", new soldProduct());
 		
 		return "productsList";
 	}
@@ -78,5 +82,26 @@ public class ProductController {
 		return"redirect:/products";
 	}
 	
+	@PostMapping("/soldProduct")
+	public void soldProduct(@ModelAttribute soldProduct soldProduct) {
+		soldProd.save(soldProduct);
+	}
+	
+	@GetMapping("/filterByGernder")
+	public String filterByGender(Model model,@RequestParam String gender,@AuthenticationPrincipal UsersDetails userD) {
+		List<Product> products = prodServ.filterByGender(gender);
+		model.addAttribute("products", products);
+		User user = userRepo.findByEmail(userD.getUsername());
+		model.addAttribute("user", user);
+		return "productsList";
+	}
+	@GetMapping("/filterByCategory")
+	public String filterByCategory(Model model,@RequestParam String category,@AuthenticationPrincipal UsersDetails userD) {
+		List<Product> products = prodServ.filterByCategory(category);
+		model.addAttribute("products", products);
+		User user = userRepo.findByEmail(userD.getUsername());
+		model.addAttribute("user", user);
+		return "productsList";
+	}
 
 }
