@@ -15,16 +15,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.eCommerce.entity.RoleName;
-import com.eCommerce.entity.ShoppingCart;
 import com.eCommerce.entity.User;
 import com.eCommerce.repository.RoleRepository;
 import com.eCommerce.repository.ShoppingCartRepository;
 import com.eCommerce.repository.UserRepository;
 
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import javax.transaction.Transactional;
 

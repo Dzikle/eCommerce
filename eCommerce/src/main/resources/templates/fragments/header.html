@@ -4,76 +4,73 @@
 
 
     <header th:fragment="header">
-      
-      <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}">Unusual</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-6">
-            <li class="nav-item">
-              <a class="nav-link active" th:href="@{/}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/products}">Products</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Dropdown
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" th:href="@{/product/create}">Add Product</a></li>
-                <li><a class="dropdown-item" th:href="@{/user/form}">Add User</a></li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-              </ul>
-            </li>
-          </ul>
-          
-        </div>
-      </div>
-      <div class="navbar-nav me-auto mb-2 mb-lg-6">
-      <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" th:text="${user.firstName}" id="navbarDropdown" role="button" data-bs-toggle="dropdown"aria-expanded="false"> </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" th:href="@{/show/cart}">Cart</a></li>
-                <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
-              </ul>
-            </li>
-    </nav>
-      </div>
+
+
+<nav>
+  <div class="container">
+    <div class="navbar-left2">
+      <a th:href="@{/}">Home</a>
+      <a th:href="@{/products}">Products</a>
+      <a>About Us</a>
+     
+    </div> <!--end navbar-left -->
+
+    <div class="navbar-right2" >
+    <span th:text="${user.firstName}"></span>
+    
+      <a href="#" id="cart"  ><i class="fa fa-shopping-cart"></i> Cart <span th:if="${#maps.size(cart)}>0" th:text="${#maps.size(cart)}" class="badge"></span></a>
+      <div class="shopping-cart" >
+        <div class="shopping-cart-header">
+          <i class="fa fa-shopping-cart cart-icon"></i><span class="badge" th:if="${#maps.size(cart)}>0" th:text="${#maps.size(cart)}"></span>
+          <div class="shopping-cart-total">
+            <span class="lighter-text">Total:</span>
+            <span class="main-color-text total" th:text="${total} + ' mkd'"></span>
+          </div>
+        </div> <!--end shopping-cart-header -->
+
+        <ul class="shopping-cart-items" >
+          <li class="clearfix" th:each="mapEntry: ${cart}" >
+            <img th:src="*{'data:image/png;base64,'+{mapEntry.key.product.photoFront}}" />
+            <span class="item-name" th:text="${mapEntry.key.product.name}"></span>
+            <span class="item-detail" th:text="${mapEntry.key.color.displayValue}"></span>
+            <span class="item-detail" th:text="${mapEntry.key.size.displayValue}"></span>
+            <span class="item-price" th:text="${mapEntry.key.product.price}+' mkd'"></span>
+            <span class="item-quantity" th:text="+${mapEntry.value}+'pcs"></span>
+          </li>
+
+
+        <a th:href="@{/show/cart}" class="button">Checkout <i class="fa fa-chevron-right"></i></a>
+      </div> <!--end shopping-cart -->
+    </div> <!--end navbar-right -->
+    
+  </div> <!--end container -->
+</nav>
+
+<div class="navbar2"></div>
       
     </header>
     
+    <header2>
+    
+    <nav>
+  <div class="container">
+    <div class="navbar-left2">
+      <a th:href="@{/}">Home</a>
+      <a th:href="@{/products}">Products</a>
+      <a>About Us</a>
+     
+    </div> <!--end navbar-left -->
+
     
     
-    <nav th:fragment="menu">
-        <a th:href="@{/}">Homepage</a>
-        <a th:href="@{/about}">About Me</a>
-        <a th:href="@{/blog}">Blog</a>
-        <a th:href="@{/contact}">Contact</a>
-    </nav>
+  </div> <!--end container -->
+</nav>
+
+<div class="navbar2"></div>
     
-    <footer th:fragment="footer">
-        <p>&copy; 2020 attacomsian.com</p>
-    </footer>
+    
+    </header2>
+    
+   
 </body>
 </html>

@@ -1,6 +1,5 @@
 package com.eCommerce.services;
 
-import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,12 +8,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.eCommerce.email.Message;
-import com.eCommerce.entity.Product;
 import com.eCommerce.entity.proccesedShoppingCart;
 import com.eCommerce.entity.soldProduct;
 import com.eCommerce.repository.EmailRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class EmailServices {

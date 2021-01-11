@@ -1,6 +1,6 @@
 package com.eCommerce.controller;
 
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.eCommerce.entity.Product;
 import com.eCommerce.entity.User;
 import com.eCommerce.repository.ProductRepository;
+import com.eCommerce.repository.ShoppingCartRepository;
 import com.eCommerce.repository.UserRepository;
+import com.eCommerce.services.ProductService;
 import com.eCommerce.services.UsersDetails;
 
 @Controller
@@ -25,13 +26,20 @@ public class UserController {
 	@Autowired
 	ProductRepository prodRepo;
 	
+	@Autowired
+	ShoppingCartRepository shopCart;
+	
+	@Autowired
+	ProductService prodServ;
+	
 	@GetMapping("/")
 	public String Homepage(Model model,@AuthenticationPrincipal UsersDetails userD) {
-		User user = userRepo.findByEmail(userD.getUsername());
-		List<Product> products=prodRepo.findAll();
-		model.addAttribute("products", products);
-		model.addAttribute("user", user);
-		return "index";
+			if (userD.getUser().getCart()!=null) {
+			model.addAttribute("cart", userD.getUser().getCart().getProduct());
+			model.addAttribute("total", prodServ.Total(userD.getUser().getCart()));
+			}
+		model.addAttribute("user", userD.getUser());
+		return "homepage";
 	}
 	
 	@GetMapping("/user/form")

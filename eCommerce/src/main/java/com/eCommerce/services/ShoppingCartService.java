@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eCommerce.entity.Product;
 import com.eCommerce.entity.ShoppingCart;
 import com.eCommerce.entity.User;
 import com.eCommerce.entity.proccesedShoppingCart;
@@ -15,16 +14,15 @@ import com.eCommerce.repository.ProccessedCartRepository;
 
 @Service
 public class ShoppingCartService {
-	
+
 	@Autowired
 	ProccessedCartRepository procCart;
-	
+
 	@Autowired
 	EmailServices emailServ;
 
 	public void proccessShoppingCart(User user, ShoppingCart cart, proccesedShoppingCart proCart) {
 		Integer total = 0;
-
 		for (soldProduct product : cart.getProduct().keySet()) {
 			total += product.getProduct().getPrice() * cart.getProduct().get(product);
 		}
@@ -35,15 +33,10 @@ public class ShoppingCartService {
 			proCart.setEmail(user.getEmail());
 		}
 		List<soldProduct> products = cart.getProduct().keySet().stream().collect(Collectors.toList());
-		
-//		List<soldProduct> soldProducts = List<Product> products;
-
 		proccesedShoppingCart userCart = new proccesedShoppingCart(products, user, proCart.getAdress(),
 				proCart.getRequests(), proCart.getEmail(), proCart.getPayment(), total);
 		procCart.save(userCart);
-
 		emailServ.sendEmailToBuyer(userCart);
-
 	}
 
 }

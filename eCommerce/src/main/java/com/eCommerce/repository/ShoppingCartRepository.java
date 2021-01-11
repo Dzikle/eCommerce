@@ -8,6 +8,7 @@ import com.eCommerce.entity.User;
 @Repository
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Integer>{
 
-	ShoppingCart findByUser(User user);
+//	ShoppingCart findByUser(User user);
+
 
 }

@@ -25,6 +25,7 @@ public class EmailController {
 	@Value("${destination.email}")
 	String destinationEmail;
 
+	@SuppressWarnings("rawtypes")
 	@PostMapping("/sendToAdmin")
 	public ResponseEntity sendEmailToAdmin(@RequestBody Message message) {
 
@@ -41,6 +42,7 @@ public class EmailController {
 		return ResponseEntity.ok("Email sent from: " + message.getFromEmail() + " successfully! ");
 	}
 
+	@SuppressWarnings("rawtypes")
 	@PostMapping("/send")
 	public ResponseEntity sendEmail(@RequestBody Message message) {
 

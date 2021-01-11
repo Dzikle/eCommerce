@@ -3,6 +3,7 @@
   width: 200px;
   height: 200px;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  z-index: 10;
 }
 
 /* This container is needed to position the front and back side */
@@ -33,6 +34,7 @@
 .flip-card-front {
   background-color:transparent;
   color: black;
+   z-index: 10;
 }
 
 /* Style the back side */
@@ -74,15 +76,13 @@ button {
     outline:none;
 }
 
-#parent {
-  display: flex;
+
+.inputs {
+  display: none;
 }
-#narrow {
-  width: 100px;
-  /* Just so it's visible */
+
+.foo:checked + .inputs {
+  display: initial;
 }
-#wide {
-  flex: 1;
-  /* Grow to rest of container */
-  /* Just so it's visible */
-}
+
+

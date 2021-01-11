@@ -3,17 +3,13 @@ package com.eCommerce.services;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.eCommerce.entity.Color;
 import com.eCommerce.entity.Product;
 import com.eCommerce.entity.ShoppingCart;
 import com.eCommerce.entity.User;
@@ -22,7 +18,6 @@ import com.eCommerce.repository.ProductRepository;
 import com.eCommerce.repository.ShoppingCartRepository;
 import com.eCommerce.repository.SoldProductRepository;
 import com.eCommerce.repository.UserRepository;
-import com.fasterxml.jackson.databind.ser.std.EnumSetSerializer;
 
 @Service
 public class ProductService {
@@ -41,7 +36,7 @@ public class ProductService {
 
 	public void AddProduct(Integer id, User user) {
 		soldProduct product = soldProdRepo.findById(id).get();
-		ShoppingCart cart = shopRepo.findByUser(user);
+		ShoppingCart cart= user.getCart();
 
 		if (cart == null) {
 			HashMap<soldProduct, Integer> basket = new HashMap<>();
@@ -60,7 +55,7 @@ public class ProductService {
 
 	public void removeProduct(Integer id, User user) {
 		soldProduct product = soldProdRepo.findById(id).get();
-		ShoppingCart cart = shopRepo.findByUser(user);
+		ShoppingCart cart= user.getCart();
 
 		if (cart.getProduct().get(product) == 1) {
 			cart.getProduct().remove(product);
@@ -99,12 +94,14 @@ public class ProductService {
 	public void addSoldProduct(soldProduct sProduct, User user, Integer id) {
 		sProduct.setProduct(prodRepo.findById(id).get());
 		soldProdRepo.save(sProduct);
-		ShoppingCart cart = shopRepo.findByUser(user);
+		ShoppingCart cart = user.getCart();
 
 		if (cart == null) {
 			HashMap<soldProduct, Integer> basket = new HashMap<>();
 			basket.put(sProduct, 1);
 			ShoppingCart cartNew = new ShoppingCart(basket, user);
+			user.setCart(cartNew);
+			userRepo.save(user);
 			shopRepo.save(cartNew);
 		} else if (!cart.getProduct().containsKey(sProduct)) {
 			cart.getProduct().put(sProduct, 1);
@@ -126,5 +123,14 @@ public class ProductService {
 			}
 		}
 		return filtProducts;
+	}
+
+	public Integer Total(ShoppingCart cart) {
+		Integer total = 0;
+		for (soldProduct product : cart.getProduct().keySet()) {
+			total += product.getProduct().getPrice() * cart.getProduct().get(product);
+		}
+		return total;
+		
 	}
 }

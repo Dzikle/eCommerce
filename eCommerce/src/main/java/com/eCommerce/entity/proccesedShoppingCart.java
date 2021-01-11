@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,9 +28,9 @@ public class proccesedShoppingCart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer id;
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.MERGE)
 	public List<soldProduct> products;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
 	public User user;
 	@OneToOne(cascade = CascadeType.ALL)
 	public Address adress;

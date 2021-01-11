@@ -1,7 +1,6 @@
 package com.eCommerce.controller;
 
 import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eCommerce.entity.Product;
+import com.eCommerce.entity.ShoppingCart;
 import com.eCommerce.entity.User;
 import com.eCommerce.entity.soldProduct;
 import com.eCommerce.repository.ProductRepository;
+import com.eCommerce.repository.ShoppingCartRepository;
 import com.eCommerce.repository.SoldProductRepository;
 import com.eCommerce.repository.UserRepository;
 import com.eCommerce.services.ProductService;
@@ -39,6 +39,9 @@ public class ProductController {
 	
 	@Autowired
 	SoldProductRepository soldProd;
+	
+	@Autowired
+	ShoppingCartRepository shopRepo;
 	
 	
 	@GetMapping("product/create")
@@ -66,13 +69,15 @@ public class ProductController {
 	
 	@GetMapping("/products")
 	public String productList(Model model,@AuthenticationPrincipal UsersDetails userD) {
-		
 		List<Product> products = prodRepo.findAll();
 		model.addAttribute("products", products);
-		User user = userRepo.findByEmail(userD.getUsername());
-		model.addAttribute("user", user);
+		ShoppingCart cart= userD.getUser().getCart();
+		if (cart!=null) {
+		model.addAttribute("cart", cart.getProduct());
+		model.addAttribute("total", prodServ.Total(cart));
+		}
+		model.addAttribute("user", userD.getUser());
 		model.addAttribute("soldProduct", new soldProduct());
-		
 		return "productsList";
 	}
 	
@@ -89,18 +94,22 @@ public class ProductController {
 	
 	@GetMapping("/filterByGernder")
 	public String filterByGender(Model model,@RequestParam String gender,@AuthenticationPrincipal UsersDetails userD) {
-		List<Product> products = prodServ.filterByGender(gender);
-		model.addAttribute("products", products);
-		User user = userRepo.findByEmail(userD.getUsername());
-		model.addAttribute("user", user);
+		model.addAttribute("products", prodServ.filterByGender(gender));
+		model.addAttribute("user", userD.getUser());
+		ShoppingCart cart= userD.getUser().getCart();
+		model.addAttribute("cart", cart.getProduct());
+		model.addAttribute("total", prodServ.Total(cart));
+		model.addAttribute("soldProduct", new soldProduct());
 		return "productsList";
 	}
 	@GetMapping("/filterByCategory")
 	public String filterByCategory(Model model,@RequestParam String category,@AuthenticationPrincipal UsersDetails userD) {
-		List<Product> products = prodServ.filterByCategory(category);
-		model.addAttribute("products", products);
-		User user = userRepo.findByEmail(userD.getUsername());
-		model.addAttribute("user", user);
+		model.addAttribute("products", prodServ.filterByCategory(category));
+		model.addAttribute("user", userD.getUser());
+		ShoppingCart cart= userD.getUser().getCart();
+		model.addAttribute("cart", cart.getProduct());
+		model.addAttribute("total", prodServ.Total(cart));
+		model.addAttribute("soldProduct", new soldProduct());
 		return "productsList";
 	}
 

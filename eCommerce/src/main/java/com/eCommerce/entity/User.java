@@ -1,6 +1,5 @@
 package com.eCommerce.entity;
 
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,10 +7,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+import javax.validation.constraints.Email;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,13 +27,16 @@ public class User {
 	
 	private String firstName;
 	private String lastName;
-
+	@Email
 	public String email;
+	
 	public String password;
 	@OneToOne(cascade = CascadeType.ALL)
 	public Address address;
-//	@ManyToMany
-//	private List<Role> roles;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	ShoppingCart cart;
+	
 	@Enumerated
 	private RoleName role;
 	public User(String firstName, String lastName, String email, String password, Address address, RoleName role) {

@@ -7,15 +7,27 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
  <link rel="stylesheet" th:href="@{/resources/css/eCommerce.css}" />
- <script type="text/javascript" th:src="@{/resources/js/script.js}"></script>
+ <link rel="stylesheet" th:href="@{/resources/css/cart.css}" />
+
+ 
   <title>Unusual</title>
 </head>
 
 <body>
 
-  <div th:insert="fragments/header :: header"></div>
+  <div th:insert="fragments/headerCart :: header"></div>
   
 	<div  class="container">
+	
+	
+<!-- 	<div class="container"> -->
+<!-- 		<a href="#" class="btn"> -->
+<!-- 			<span><b>Cart</b></span> -->
+<!-- 			<span class="badge" th:text="${#maps.size(cart)}"></span> -->
+<!-- 		</a> -->
+<!-- 	</div> -->
+	
+	
 <!-- 		<div> -->
 <!-- 		<div  id="carouselExampleControls" class="carousel slide" data-ride="carousel"> -->
 <!-- 		  <div class="carousel-inner"> -->
@@ -39,9 +51,9 @@
 	
 	
 	
-
  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

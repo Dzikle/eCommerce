@@ -1,10 +1,7 @@
 package com.eCommerce.services;
 
 import java.util.ArrayList;
-
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,6 +11,7 @@ import com.eCommerce.entity.RoleName;
 import com.eCommerce.entity.User;
 
 
+@SuppressWarnings("serial")
 public class UsersDetails implements UserDetails{
 
 	
@@ -68,6 +66,14 @@ public class UsersDetails implements UserDetails{
         
 	
 	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
