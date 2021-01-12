@@ -40,14 +40,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		auth.authenticationProvider(authenticationProvider());
 	}
 	
+	private static final String[] PUBLIC = {
+			"/resources/**",
+			"/css/**",
+			"/fonts/**",
+			"images/**",
+			"js/**",
+			"/",
+			"/login",
+			"/signUpForm**",
+			"/products/**",
+			"/img/**"
+	};
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.authorizeRequests()
-		.antMatchers(
-				"/signUpForm**",
-				"/js/**",
-				"/css/**",
-				"/img/**").permitAll()
+		.antMatchers(PUBLIC).permitAll()
 		.anyRequest()
 		.authenticated()
 		.and()

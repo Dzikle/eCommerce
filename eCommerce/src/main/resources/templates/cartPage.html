@@ -13,47 +13,7 @@
 
 <body>
 
-<nav>
-  <div class="container">
-    <div class="navbar-left2">
-      <a th:href="@{/}">Home</a>
-      <a th:href="@{/products}">Products</a>
-      <a>About Us</a>
-     
-    </div> <!--end navbar-left -->
-
-    <div class="navbar-right2" >
-    <span th:text="${user.firstName}"></span>
-    
-      <a href="#" id="cart"  ><i class="fa fa-shopping-cart"></i> Cart <span th:if="${#maps.size(cart)}>0" th:text="${#maps.size(cart)}" class="badge"></span></a>
-      <div class="shopping-cart" >
-        <div class="shopping-cart-header">
-          <i class="fa fa-shopping-cart cart-icon"></i><span class="badge" th:if="${#maps.size(cart)}>0" th:text="${#maps.size(cart)}"></span>
-          <div class="shopping-cart-total">
-            <span class="lighter-text">Total:</span>
-            <span class="main-color-text total" th:text="${total} + ' mkd'"></span>
-          </div>
-        </div> <!--end shopping-cart-header -->
-
-        <ul class="shopping-cart-items" >
-          <li class="clearfix" th:each="mapEntry: ${cart}" >
-            <img th:src="*{'data:image/png;base64,'+{mapEntry.key.product.photoFront}}" />
-            <span class="item-name" th:text="${mapEntry.key.product.name}"></span>
-            <span class="item-detail" th:text="${mapEntry.key.color.displayValue}"></span>
-            <span class="item-detail" th:text="${mapEntry.key.size.displayValue}"></span>
-            <span class="item-price" th:text="${mapEntry.key.product.price}+' mkd'"></span>
-            <span class="item-quantity" th:text="'Quantity : '+${mapEntry.value}"></span>
-          </li>
-
-
-        <a th:href="@{/show/cart}" class="button">Checkout <i class="fa fa-chevron-right"></i></a>
-      </div> <!--end shopping-cart -->
-    </div> <!--end navbar-right -->
-    
-  </div> <!--end container -->
-</nav>
-
-<div class="navbar2"></div>
+<div th:insert="/fragments/header :: header"></div>
 
 <div class="container">
 

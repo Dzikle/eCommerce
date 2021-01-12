@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eCommerce.entity.ShoppingCart;
-import com.eCommerce.entity.User;
 import com.eCommerce.entity.proccesedShoppingCart;
 import com.eCommerce.entity.soldProduct;
 import com.eCommerce.repository.ProccessedCartRepository;
@@ -37,7 +36,6 @@ public class CartController {
 	
 	@Autowired
 	ProccessedCartRepository procCart;
-	
 	
 	@Autowired
 	ShoppingCartService shopServ;

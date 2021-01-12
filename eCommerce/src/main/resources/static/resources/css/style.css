@@ -6,7 +6,7 @@
 
 body {
   font: 14px/22px "Ubuntu", Arial, sans-serif;
-  background: white;
+  background: #ffffff;
 }
 
 .lighter-text {
@@ -264,5 +264,4 @@ button2 {
 .foo:checked + .inputs {
   display: initial;
 }
-
 

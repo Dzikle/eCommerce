@@ -25,92 +25,99 @@ import com.eCommerce.repository.SoldProductRepository;
 import com.eCommerce.repository.UserRepository;
 import com.eCommerce.services.ProductService;
 import com.eCommerce.services.UsersDetails;
+
 @Controller
 public class ProductController {
-	
+
 	@Autowired
 	ProductRepository prodRepo;
-	
+
 	@Autowired
 	UserRepository userRepo;
-	
+
 	@Autowired
 	ProductService prodServ;
-	
+
 	@Autowired
 	SoldProductRepository soldProd;
-	
+
 	@Autowired
 	ShoppingCartRepository shopRepo;
-	
-	
+
 	@GetMapping("product/create")
-	public String getProductForm(Model model,@AuthenticationPrincipal UsersDetails userD) {
+	public String getProductForm(Model model, @AuthenticationPrincipal UsersDetails userD) {
+		
 		Product product = new Product();
 		model.addAttribute("product", product);
-		User user = userRepo.findByEmail(userD.getUsername());
-		model.addAttribute("user", user);
-		return"ProductForm";
+		if(userD!=null){
+		model.addAttribute("user", userD.getUser());
+		}
+		return "ProductForm";
 	}
+
 	@PostMapping("/save")
-	public String saveProduct(@ModelAttribute Product product,MultipartFile file,MultipartFile file1,MultipartFile file2) {
+	public String saveProduct(@ModelAttribute Product product, MultipartFile file, MultipartFile file1,
+			MultipartFile file2) {
 		try {
-			prodServ.addPhotos(file,file1,file2,product);
+			prodServ.addPhotos(file, file1, file2, product);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return "redirect:product/create";
 	}
 	@GetMapping
-	public String updateProduct(Model model,@Param(value = "product") Product product) {
+	public String updateProduct(Model model, @Param(value = "product") Product product) {
 		prodRepo.save(product);
-		return"updateForm";
+		return "updateForm";
 	}
-	
 	@GetMapping("/products")
-	public String productList(Model model,@AuthenticationPrincipal UsersDetails userD) {
+	public String productList(Model model, @AuthenticationPrincipal UsersDetails userD) {
 		List<Product> products = prodRepo.findAll();
 		model.addAttribute("products", products);
-		ShoppingCart cart= userD.getUser().getCart();
-		if (cart!=null) {
-		model.addAttribute("cart", cart.getProduct());
-		model.addAttribute("total", prodServ.Total(cart));
+		if(userD!=null) {
+		ShoppingCart cart = userD.getUser().getCart();
+		if (cart != null) {
+			model.addAttribute("cart", cart.getProduct());
+			model.addAttribute("total", prodServ.Total(cart));
 		}
 		model.addAttribute("user", userD.getUser());
+		}
 		model.addAttribute("soldProduct", new soldProduct());
 		return "productsList";
 	}
-	
+
 	@GetMapping("/delete/product/{id}")
 	public String deleteProduct(@PathVariable("id") Integer id) {
-		prodRepo.deleteById(id);		
-		return"redirect:/products";
+		soldProduct soldProduct = soldProd.findByProduct(prodRepo.findById(id));
+		soldProd.delete(soldProduct);
+		prodRepo.deleteById(id);
+		return "redirect:/products";
 	}
-	
 	@PostMapping("/soldProduct")
 	public void soldProduct(@ModelAttribute soldProduct soldProduct) {
 		soldProd.save(soldProduct);
 	}
-	
 	@GetMapping("/filterByGernder")
-	public String filterByGender(Model model,@RequestParam String gender,@AuthenticationPrincipal UsersDetails userD) {
+	public String filterByGender(Model model, @RequestParam String gender,
+			@AuthenticationPrincipal UsersDetails userD) {
 		model.addAttribute("products", prodServ.filterByGender(gender));
 		model.addAttribute("user", userD.getUser());
-		ShoppingCart cart= userD.getUser().getCart();
-		model.addAttribute("cart", cart.getProduct());
-		model.addAttribute("total", prodServ.Total(cart));
-		model.addAttribute("soldProduct", new soldProduct());
-		return "productsList";
-	}
-	@GetMapping("/filterByCategory")
-	public String filterByCategory(Model model,@RequestParam String category,@AuthenticationPrincipal UsersDetails userD) {
-		model.addAttribute("products", prodServ.filterByCategory(category));
-		model.addAttribute("user", userD.getUser());
-		ShoppingCart cart= userD.getUser().getCart();
+		ShoppingCart cart = userD.getUser().getCart();
 		model.addAttribute("cart", cart.getProduct());
 		model.addAttribute("total", prodServ.Total(cart));
 		model.addAttribute("soldProduct", new soldProduct());
 		return "productsList";
 	}
 
+	@GetMapping("/filterByCategory")
+	public String filterByCategory(Model model, @RequestParam String category,
+			@AuthenticationPrincipal UsersDetails userD) {
+		model.addAttribute("products", prodServ.filterByCategory(category));
+		model.addAttribute("user", userD.getUser());
+		ShoppingCart cart = userD.getUser().getCart();
+		model.addAttribute("cart", cart.getProduct());
+		model.addAttribute("total", prodServ.Total(cart));
+		model.addAttribute("soldProduct", new soldProduct());
+		return "productsList";
+	}
 }

@@ -48,6 +48,9 @@ public class User {
 		this.address = address;
 		this.role = role;
 	}
+	public User(String firstName) {
+		this.firstName = firstName;
+	}
 	
 
 }
