@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.eCommerce.entity.Product;
 import com.eCommerce.entity.ShoppingCart;
-import com.eCommerce.entity.User;
 import com.eCommerce.entity.soldProduct;
 import com.eCommerce.repository.ProductRepository;
 import com.eCommerce.repository.ShoppingCartRepository;

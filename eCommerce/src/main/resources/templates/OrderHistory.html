@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div th:insert="/fragments/header :: head"></div>
+    <title>Document</title>
+</head>
+<body>
+    <div th:insert="/fragments/header :: header"></div>
+    
+<!--     <table class="table table-striped"> -->
+<!--   <thead> -->
+<!--     <tr> -->
+<!--       <th scope="col">Name</th> -->
+<!--       <th scope="col">Color</th> -->
+<!--       <th scope="col">Size</th> -->
+<!--       <th scope="col">Price</th> -->
+<!--       <th></th> -->
+<!--       <th scope="col">Qty</th> -->
+<!--       <th></th> -->
+<!--        <th scope="col">Photo</th> -->
+<!--         <th scope="col">Total</th> -->
+<!--     </tr> -->
+<!--   </thead> -->
+<!--   <tbody> -->
+<!--     <tr th:each="mapEntry: ${proCart}"> -->
+<!--         <td th:text="${mapEntry.key.product.name}"></td>  -->
+<!-- <!--          <td th:each="color :${mapEntry.key.colors}"  th:text="${color.displayValue}"> --> -->
+
+<!-- 			<td th:text="${mapEntry.key.color.displayValue}"> -->
+<!-- 			<td th:text="${mapEntry.key.size.displayValue}"> -->
+	
+<!-- 	         </td> -->
+<!-- 	          <td th:text="${mapEntry.key.product.price}+' mkd'"></td> -->
+<!-- 	          <td ><a type="button" class="btn btn-secondary btn-sm" th:href="@{/remove/{id}(id=${mapEntry.key.id})}">-</a> -->
+		          
+<!-- 	          </td> -->
+<!-- 	        <td  th:text="${mapEntry.value}"></td> -->
+<!-- 	        <td><a type="button" class="btn btn-secondary btn-sm" th:href="@{/add/page/{id}(id=${mapEntry.key.id})}">+</a> -->
+<!-- 	        </td> -->
+	        
+<!--           <td > -->
+<!--            <div class="img-hover-zoom img-hover-zoom--xyz"> -->
+<!--            <img th:src="*{'data:image/png;base64,'+{mapEntry.key.product.photoFront}}" alt="${product.name}" style="width:80px;height:80px;"> -->
+<!--            </div> -->
+<!--           </td> -->
+         
+<!-- 			<td th:text="${mapEntry.value}*${mapEntry.key.product.price}+' mkd'"> -->
+			
+<!-- 			</td> -->
+<!--     </tr> -->
+<!--     <div> -->
+<!--   	</div> -->
+<!--   </tbody> -->
+<!-- </table> -->
+
+<div  class="container">
+			<div th:each="cart:${proCart}" id="accordion">
+			  <div  class="card">
+			    <div  class="card-header" id="headingOne">
+			      <h3 class="mb-0">
+			        <a th:text="'Order date  : ' + ${#dates.format(cart.date, 'dd-MMM-yyyy')} + ' ' + 'shipped to :' + ${cart.adress.city} + ' ' + 'Total price :' + ${cart.total}" class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			        </a>
+			      </h3>
+			  </div>
+    <div  id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div  class="card-body">
+          <table class="table">
+			  <thead>
+			    <tr >
+			      <th scope="col">Name</th>
+			      <th scope="col">Photo</th>
+			      <th scope="col">Size</th>
+			      <th scope="col">Color</th>
+<!-- 			      <th scope="col">Qty</th> -->
+			       <th scope="col">Price</th>
+			    </tr>
+			  </thead>
+		  <tbody>
+		    <tr th:each="product: ${cart.products}">
+		        <td th:text="${product.product.name}"></td> 
+		        <td >
+		           <div class="img-hover-zoom img-hover-zoom--xyz">
+		           <img th:src="*{'data:image/png;base64,'+{product.product.photoFront}}" th:alt="${product.product.name}" style="width:20px;height:20px;">
+		           </div>
+		         </td>
+				<td th:text="${product.size.displayValue}"></td>
+				<td th:text="${product.color.displayValue}"></td>
+			    <td th:text="${product.product.price}+' mkd'"></td>
+		    </tr>
+		  </tbody>
+			</table>
+      
+      </div>
+    </div>
+  </div>
+  
+</div>
+    
+    </div>
+    
+    
+    
+    <th:block th:insert="/fragments/header :: scripts"></th:block>
+</body>
+</html>

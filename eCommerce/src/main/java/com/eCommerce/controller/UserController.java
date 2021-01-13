@@ -3,17 +3,15 @@ package com.eCommerce.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.eCommerce.entity.RoleName;
 import com.eCommerce.entity.User;
+import com.eCommerce.repository.ProccessedCartRepository;
 import com.eCommerce.repository.ProductRepository;
 import com.eCommerce.repository.ShoppingCartRepository;
 import com.eCommerce.repository.UserRepository;
@@ -35,6 +33,9 @@ public class UserController {
 	
 	@Autowired
 	ProductService prodServ;
+	
+	@Autowired
+	ProccessedCartRepository procCart;
 	
 	@GetMapping("/")
 	public String Homepage(Model model,@AuthenticationPrincipal UsersDetails userD) {
@@ -67,4 +68,20 @@ public class UserController {
 	public String LoginPage(Model model) {
 	return "login";
 	}
+	
+	@GetMapping("/history")
+	public String OrderHistory(Model model,@AuthenticationPrincipal UsersDetails userD) {
+		
+		if (userD!=null) {
+			if (userD.getUser().getCart()!=null) {
+			model.addAttribute("cart", userD.getUser().getCart().getProduct());
+			model.addAttribute("total", prodServ.Total(userD.getUser().getCart()));
+			}
+			model.addAttribute("proCart", procCart.findByUser(userD.getUser()));
+			model.addAttribute("user", userD.getUser());
+		}
+		return "orderHistory";
+	}
+	
+	
 }

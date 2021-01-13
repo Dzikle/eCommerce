@@ -1,5 +1,7 @@
 package com.eCommerce.entity;
 
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,18 +46,22 @@ public class proccesedShoppingCart {
 	private String payment;
 	
 	private Integer total;
-
-	public proccesedShoppingCart(List<soldProduct> products2, User user, Address adress, String requests,
-			@Email String email, String payment, Integer total) {
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
+	private Date date;
+	public proccesedShoppingCart(List<soldProduct> products, User user, Address adress, String requests,
+			@Email String email, String payment, Integer total, Date date) {
 		super();
-		this.products = products2;
+		this.products = products;
 		this.user = user;
 		this.adress = adress;
 		this.requests = requests;
 		this.email = email;
 		this.payment = payment;
 		this.total = total;
+		this.date = date;
 	}
+
+	
 
 	
 	

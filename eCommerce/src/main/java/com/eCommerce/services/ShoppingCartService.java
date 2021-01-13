@@ -1,5 +1,6 @@
 package com.eCommerce.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +35,7 @@ public class ShoppingCartService {
 		}
 		List<soldProduct> products = cart.getProduct().keySet().stream().collect(Collectors.toList());
 		proccesedShoppingCart userCart = new proccesedShoppingCart(products, user, proCart.getAdress(),
-				proCart.getRequests(), proCart.getEmail(), proCart.getPayment(), total);
+				proCart.getRequests(), proCart.getEmail(), proCart.getPayment(), total,new Date(System.currentTimeMillis()));
 		procCart.save(userCart);
 		emailServ.sendEmailToBuyer(userCart);
 	}
