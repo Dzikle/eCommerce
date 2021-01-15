@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div th:insert="/fragments/header :: head"></div>
+    <title>Document</title>
+</head>
+<body>
+    <div th:insert="/fragments/header :: header"></div>
+    
+    <h1 align="center">Your message is sent.We'll get back to you soon</h1>
+    
+    <th:block th:insert="/fragments/header :: scripts"></th:block>
+</body>
+</html>

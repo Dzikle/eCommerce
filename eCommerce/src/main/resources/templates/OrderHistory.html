@@ -60,8 +60,8 @@
 			  <div  class="card">
 			    <div  class="card-header" id="headingOne">
 			      <h3 class="mb-0">
-			        <a th:text="'Order date  : ' + ${#dates.format(cart.date, 'dd-MMM-yyyy')} + ' ' + 'shipped to :' + ${cart.adress.city} + ' ' + 'Total price :' + ${cart.total}" class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-			        </a>
+			        <h1><a th:text="'Order date  : ' + ${#dates.format(cart.date, 'dd-MMM-yyyy')} + ' ' + 'shipped to :' + ${cart.adress.Street} + ' ' + 'Total price :' + ${cart.total}" class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			        </a></h1>
 			      </h3>
 			  </div>
     <div  id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
@@ -73,7 +73,7 @@
 			      <th scope="col">Photo</th>
 			      <th scope="col">Size</th>
 			      <th scope="col">Color</th>
-<!-- 			      <th scope="col">Qty</th> -->
+			      <th scope="col">Qty</th>
 			       <th scope="col">Price</th>
 			    </tr>
 			  </thead>
@@ -82,11 +82,12 @@
 		        <td th:text="${product.product.name}"></td> 
 		        <td >
 		           <div class="img-hover-zoom img-hover-zoom--xyz">
-		           <img th:src="*{'data:image/png;base64,'+{product.product.photoFront}}" th:alt="${product.product.name}" style="width:20px;height:20px;">
+		           <img th:src="*{'data:image/png;base64,'+{product.product.photoFront}}" th:alt="${product.product.name}" style="width:60px;height:60px;">
 		           </div>
 		         </td>
 				<td th:text="${product.size.displayValue}"></td>
 				<td th:text="${product.color.displayValue}"></td>
+				<td th:text="${product.quantity}"></td>
 			    <td th:text="${product.product.price}+' mkd'"></td>
 		    </tr>
 		  </tbody>

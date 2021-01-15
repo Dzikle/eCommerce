@@ -82,6 +82,18 @@ public class UserController {
 		}
 		return "orderHistory";
 	}
+	@GetMapping("/proba")
+	public String Homepage2(Model model,@AuthenticationPrincipal UsersDetails userD) {
+		
+		if (userD!=null) {
+			if (userD.getUser().getCart()!=null) {
+			model.addAttribute("cart", userD.getUser().getCart().getProduct());
+			model.addAttribute("total", prodServ.Total(userD.getUser().getCart()));
+			}
+			model.addAttribute("user", userD.getUser());
+		}
+		return "proba";
+	}
 	
 	
 }

@@ -1,9 +1,11 @@
 package com.eCommerce.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -71,8 +73,7 @@ public class ProductController {
 	}
 	@GetMapping("/products")
 	public String productList(Model model, @AuthenticationPrincipal UsersDetails userD) {
-		List<Product> products = prodRepo.findAll();
-		model.addAttribute("products", products);
+		model.addAttribute("products", prodRepo.findAll());
 		if(userD!=null) {
 		ShoppingCart cart = userD.getUser().getCart();
 		if (cart != null) {
@@ -87,8 +88,8 @@ public class ProductController {
 
 	@GetMapping("/delete/product/{id}")
 	public String deleteProduct(@PathVariable("id") Integer id) {
-		soldProduct soldProduct = soldProd.findByProduct(prodRepo.findById(id));
-		soldProd.delete(soldProduct);
+//		soldProduct soldProduct = soldProd.findByProduct(prodRepo.findById(id));
+//		soldProd.delete(soldProduct);
 		prodRepo.deleteById(id);
 		return "redirect:/products";
 	}
@@ -101,9 +102,8 @@ public class ProductController {
 			@AuthenticationPrincipal UsersDetails userD) {
 		model.addAttribute("products", prodServ.filterByGender(gender));
 		model.addAttribute("user", userD.getUser());
-		ShoppingCart cart = userD.getUser().getCart();
-		model.addAttribute("cart", cart.getProduct());
-		model.addAttribute("total", prodServ.Total(cart));
+		model.addAttribute("cart", userD.getUser().getCart().getProduct());
+		model.addAttribute("total", prodServ.Total(userD.getUser().getCart()));
 		model.addAttribute("soldProduct", new soldProduct());
 		return "productsList";
 	}
@@ -113,10 +113,53 @@ public class ProductController {
 			@AuthenticationPrincipal UsersDetails userD) {
 		model.addAttribute("products", prodServ.filterByCategory(category));
 		model.addAttribute("user", userD.getUser());
-		ShoppingCart cart = userD.getUser().getCart();
-		model.addAttribute("cart", cart.getProduct());
-		model.addAttribute("total", prodServ.Total(cart));
+		model.addAttribute("cart", userD.getUser().getCart().getProduct());
+		model.addAttribute("total", prodServ.Total(userD.getUser().getCart()));
 		model.addAttribute("soldProduct", new soldProduct());
 		return "productsList";
 	}
+	
+	@GetMapping("/products2")
+	  public String viewProductPageInGrid(Model model,
+			@Param("search")String gender,
+			@Param("pid")String category) {
+		
+		
+		gridDetails(model, 1,gender,category);
+		
+		       return "productGrid";
+	}
+	
+	   @GetMapping("/pag/{pagNum}")
+	   public String gridDetails( Model model ,@PathVariable("pagNum") Integer pagNum,
+			@Param("gender")String gender,
+			@Param("category")String category) {
+		
+      
+//      List<Product> listProducts = new ArrayList<>();
+      
+ 
+	    Integer pageSize = 4;
+	    
+	    Page<Product>pag = prodServ.grid(pagNum, pageSize,gender,category);
+	    
+	    List<Product> listProducts = pag.getContent();
+	    
+//	    for (Product product2 : listProductss) {
+//	    	if(product2.getAvailableQty()> 0) {
+//	    		
+//	   		listProducts.add(product2);
+//	     	}
+//	     }
+	 
+		  model.addAttribute("listProducts", listProducts);
+	   	  model.addAttribute("currentPage",pagNum);
+		  model.addAttribute("totalPages", pag.getTotalPages());
+		  model.addAttribute("totalItems", pag.getTotalElements());
+		  model.addAttribute("gender", gender);
+		  model.addAttribute("category", category);
+		
+		       return "productGrid";
+	}
+	
 }

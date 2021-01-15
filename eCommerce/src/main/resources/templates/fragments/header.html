@@ -13,35 +13,34 @@
     <header th:fragment="header">
 <!-- partial:index.partial.html -->
 <nav>
-  <div class="container2">
-    <div class="navbar-left2">
-      <a th:href="@{/}">Home</a>
-      
-     <a  class=" dropdown-toggle"  role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products
-  </a>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <a class="dropdown-item" th:href="@{/products}">Products</a>
-    <a class="dropdown-item" href="#">Sale</a>
-    <a class="dropdown-item" th:href="@{/product/create}">Create product</a>
-  </div>
-      
-      
-      <a>About Us</a>
-     
-    </div> <!--end navbar-left -->
-
-    <div   class="navbar-right2" >
-    
-  <a th:if="${user!=null}" th:text="${user.firstName}"  class=" dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  </a>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <a class="dropdown-item" href="#">Cart</a>
-    <a class="dropdown-item" th:href="@{/history}">Orders</a>
-    <a class="dropdown-item" th:href="@{/logout}">Logout</a>
-  </div>
-    
-			    <!-- Button trigger modal -->
-			<a th:unless="${user!=null}"  data-toggle="modal" data-target="#exampleModalCenter">
+        <div class="logo">
+            <img src="https://iconape.com/wp-content/png_logo_vector/unusual-logo.png" alt="Logo Image">
+        </div>
+        <div class="hamburger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a class=" dropdown-toggle"  role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
+            <div class="dropdown-menu new" aria-labelledby="dropdownMenuLink">
+    			<a class="dropdown-item" th:href="@{/products}">Products</a>
+    			<a class="dropdown-item" href="#">Sale</a>
+  				  <a class="dropdown-item" th:href="@{/product/create}">Create product</a>
+  			</div>
+            </li>
+            <li><a th:href="@{/}">About Us</a></li>
+            <li><a th:href="@{/contact}">Contact Us</a></li>
+            <li><a th:if="${user!=null}" th:text="${user.firstName}"  class=" dropdown-toggle login-button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					  </a>
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+					    <a class="dropdown-item" href="#">Cart</a>
+					    <a class="dropdown-item" th:href="@{/history}">Orders</a>
+					    <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+					  </div>
+					  
+					  <a th:unless="${user!=null}" class="login-button"  data-toggle="modal" data-target="#exampleModalCenter">
 			Login
 			</a>
 			
@@ -95,25 +94,13 @@
 
 
 			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			        <button type="button" class="btn btn-primary">Save changes</button>
-			      </div>
+			      
 			    </div>
 			  </div>
 			</div>
-			    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    	<a href="#" th:if="${cart!=null && #maps.size(cart)!=null && #maps.size(cart)!=0}"  id="cart"  ><i class="fa fa-shopping-cart"></i> Cart <span th:text="${#maps.size(cart)}" class="badge"></span></a>
+ </li>
+            <li>
+            		<a href="#" th:if="${cart!=null && #maps.size(cart)!=null && #maps.size(cart)!=0}"  id="cart"  ><i class="fa fa-shopping-cart"></i> Cart <span th:text="${#maps.size(cart)}" class="badge"></span></a>
       <div class="shopping-cart" >
         <div class="shopping-cart-header">
           <i class="fa fa-shopping-cart cart-icon"></i><span class="badge" th:if="${cart!=null && #maps.size(cart)!=null && #maps.size(cart)!=0}" th:text="${#maps.size(cart)}"></span>
@@ -135,12 +122,12 @@
 
 
         <a th:href="@{/show/cart}" class="button">Checkout <i class="fa fa-chevron-right"></i></a>
-      </div> <!--end shopping-cart -->
-    </div> <!--end navbar-right -->
-    
-  </div> <!--end container -->
-</nav>
-<div class="navbar2"></div>
+      </div>
+            
+            
+            </li>
+        </ul>
+    </nav>
     </header>
     
     <th:block  th:fragment="scripts">

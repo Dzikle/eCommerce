@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div th:insert="/fragments/header :: head"></div>
+    <title>Document</title>
+</head>
+<body>
+
+<body>
+    <nav>
+        <div class="logo">
+            <img src="logo.svg" alt="Logo Image">
+        </div>
+        <div class="hamburger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a class=" dropdown-toggle"  role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
+            <div class="dropdown-menu new" aria-labelledby="dropdownMenuLink">
+    			<a class="dropdown-item" th:href="@{/products}">Products</a>
+    			<a class="dropdown-item" href="#">Sale</a>
+  				  <a class="dropdown-item" th:href="@{/product/create}">Create product</a>
+  			</div>
+            </li>
+            <li><a th:href="@{/}">About Us</a></li>
+            <li><a th:href="@{/contact}">Contact Us</a></li>
+            <li><a th:if="${user!=null}" th:text="${user.firstName}"  class=" dropdown-toggle login-button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					  </a>
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+					    <a class="dropdown-item" href="#">Cart</a>
+					    <a class="dropdown-item" th:href="@{/history}">Orders</a>
+					    <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+					  </div>
+					  
+					  <a th:unless="${user!=null}"   data-toggle="modal" data-target="#exampleModalCenter">
+			Login
+			</a>
+			
+			<!-- Modal -->
+			<div class="modal fade "  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        
+				  <div class="modal-body">
+                   <form th:action="@{/login}" method="post">
+    <div th:if="${param.error}">
+      <div class="alert alert-danger">Invalid username or
+       password.</div>
+     </div>
+     <div th:if="${param.logout}">
+      <div class="alert alert-info">You have been logged out.</div>
+     </div>
+    <div class="form-group">
+    <label for="username">* Email</label>
+    <input type="text" id="username" name="username" class="form-control"
+       autofocus="autofocus" placeholder="Username" />
+     </div>
+     <div class="form-group">
+      <label for="password">Password</label> 
+      <input type="password" id="password" name="password" class="form-control"
+       placeholder="Password" />
+     </div>
+      <div class="form-group">
+      <div class="row">
+       <div class="col-sm-6 col-sm-offset-3">
+        <input type="submit" name="login-submit" id="login-submit"
+         class="form-control btn btn-primary" value="Log In" />
+       </div>
+      </div>
+     </div>
+     
+     </form>
+                </div>
+                <div class="form-group">
+      <span>New user? <a href="/" th:href="@{/signUpForm}">Register
+        here</a></span>
+     </div>
+
+
+
+			      </div>
+			      
+			    </div>
+			  </div>
+			</div>
+ </li>
+            <li>
+            		<a href="#" th:if="${cart!=null && #maps.size(cart)!=null && #maps.size(cart)!=0}"  id="cart"  ><i class="fa fa-shopping-cart"></i> Cart <span th:text="${#maps.size(cart)}" class="badge"></span></a>
+      <div class="shopping-cart" >
+        <div class="shopping-cart-header">
+          <i class="fa fa-shopping-cart cart-icon"></i><span class="badge" th:if="${cart!=null && #maps.size(cart)!=null && #maps.size(cart)!=0}" th:text="${#maps.size(cart)}"></span>
+          <div class="shopping-cart-total">
+            <span class="lighter-text">Total:</span>
+            <span class="main-color-text total" th:text="${total} + ' mkd'"></span>
+          </div>
+        </div> <!--end shopping-cart-header -->
+
+        <ul class="shopping-cart-items" >
+          <li class="clearfix" th:if="${cart!=null && #maps.size(cart)!=null}"  th:each="mapEntry: ${cart}" >
+            <img th:src="*{'data:image/png;base64,'+{mapEntry.key.product.photoFront}}" />
+            <span class="item-name" th:text="${mapEntry.key.product.name}"></span>
+            <span class="item-detail" th:text="${mapEntry.key.color.displayValue}"></span>
+            <span class="item-detail" th:text="${mapEntry.key.size.displayValue}"></span>
+            <span class="item-price" th:text="${mapEntry.key.product.price}+' mkd'"></span>
+            <span class="item-quantity" th:text="'Quantity : '+${mapEntry.value}"></span>
+          </li>
+
+
+        <a th:href="@{/show/cart}" class="button">Checkout <i class="fa fa-chevron-right"></i></a>
+      </div>
+            
+            
+            </li>
+        </ul>
+        
+        
+          <!-- Button trigger modal -->
+<button type="button" class="desen" data-toggle="modal" data-target="#exampleModalCenter">
+ .                                 .
+</button>
+
+
+        
+    </nav>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer id="primary-footer">
+	<!-- footer widget start -->
+	<div class="container footer-widget-area">
+		<div class="row">
+			<div class="col-md-4 p-3">
+				<div class="footer-widget-heading">
+					<h4>Fox Maya</h4>
+				</div>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+				<div class="footer-social-icon">
+                                <div class="social-title">Follow us:</div>
+                                <a href="https://www.facebook.com/foxmayaban/"><i class="fab fa-facebook-f circle-icon"></i></a>
+                                <a href="https://www.instagram.com/foxmayadigital/"><i class="fab fa-instagram circle-icon"></i></a>
+                                <a href="https://twitter.com/foxmayadigital"><i class="fab fa-twitter circle-icon"></i></a>
+                                <a href="https://www.linkedin.com/in/ban-sharma/"><i class="fab fa-linkedin-in circle-icon"></i></a>
+                            </div>
+			</div>
+			<div class="col-md-4 p-3">
+				<div class="footer-widget-heading">
+					<h4>Popular Posts</h4>
+				</div>
+				      <ul class="linkediting">
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Free Bootstrap 4 Templates</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Bootstrap Footer Templates</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Bootstrap Portfolio Themes</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Bootstrap Hero</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Bootstrap 4 Tutorial</a></li>
+	                  </ul>
+				</div>
+			<div class="col-md-4 p-3">
+				<div class="footer-widget-heading">
+					<h4>Quick Links</h4>
+				</div>
+				<ul class="linkediting">
+                        <li><a href="#"><i class="fa fa-angle-right"></i> About Us</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> My Portfolio</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Testimonials</a></li>
+	                  </ul>
+			</div>
+		</div>
+	</div>
+	<!-- footer widget end -->
+    <hr>
+    <!-- footer credit -->
+	<div class="copyright-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="copyright-text text-left">
+                            <p>Designed by <a href="https://foxmaya.com/about/">Ban Sharma</a></p>
+                        </div>
+				</div>
+				<div class="col-md-6">
+					<div class="footer-menus text-right">
+						<ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Condition</a></li>
+	                  </ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- footer credit end -->
+</footer>
+    
+    <th:block th:insert="/fragments/header :: scripts"></th:block>
+</body>
+</html>

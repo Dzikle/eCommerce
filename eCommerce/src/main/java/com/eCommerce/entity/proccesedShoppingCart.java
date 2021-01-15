@@ -36,7 +36,7 @@ public class proccesedShoppingCart {
 	public List<soldProduct> products;
 	@ManyToOne(fetch = FetchType.EAGER)
 	public User user;
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	public Address adress;
 	
 	private String requests;
@@ -48,6 +48,7 @@ public class proccesedShoppingCart {
 	private Integer total;
 	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	private Date date;
+	
 	public proccesedShoppingCart(List<soldProduct> products, User user, Address adress, String requests,
 			@Email String email, String payment, Integer total, Date date) {
 		super();

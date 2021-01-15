@@ -50,6 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			"/login",
 			"/signUpForm**",
 			"/products/**",
+			"/photos/**",
 			"/img/**"
 	};
 	

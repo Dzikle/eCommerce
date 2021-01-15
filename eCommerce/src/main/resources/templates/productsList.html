@@ -21,88 +21,85 @@
   <div class="container">
 
 
-  
-      <form action="/filterByGernder" method="get">
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">Gender</label>
-        </div>
-        <select name="gender" onchange="this.form.submit()" class="custom-select" id="inputGroupSelect01">
-          <option selected>Gender...</option>
-          <option th:each="gender : ${T(com.eCommerce.entity.Gender).values()}" th:text="${gender.displayValue}"
-            th:value="${gender}"></option>
-        </select>
+		  <div class="row">
+		    
+		  <div class="col-sm-6">  
+		    <div class="btn-group" role="group" aria-label="Basic example">
+		    
+		  <form action="/filterByCategory" method="get">
+		      <div class="input-group mb-3">
+		      <div class="input-group-prepend">
+		      <label class="">Filter    by:</label>
+		      </div>
+		        <select  name="category" onchange="this.form.submit()" class="custom-select custom-select-lg mb-3" id="inputGroupSelect01">
+		          <option selected>Category...</option>
+		          <option th:each="category : ${T(com.eCommerce.entity.Category).values()}" th:text="${category.displayValue}"
+		            th:value="${category}"></option>
+		        </select>
+		      </div>
+		    </form>
+		  
+		    <form action="/filterByGernder" method="get">
+		      <div class="input-group mb-3">
+		        <select name="gender" onchange="this.form.submit()" class="custom-select" id="inputGroupSelect01">
+		          <option selected>Gender...</option>
+		          <option th:each="gender : ${T(com.eCommerce.entity.Gender).values()}" th:text="${gender.displayValue}"
+		            th:value="${gender}"></option>
+		        </select>
+				 </div>
+			 </form>
+		  
+		</div>
+		    </div>
+		    
+		    
+		    
+		 <div class="row">
+		
+		
+		   
+		    		  <div class="flip-card" th:each="product : ${products}">
+		        <div class="flip-card-inner">
+		          <div class="flip-card-front">
+		            <img th:src="*{'data:image/png;base64,'+{product.photoFront}}" alt="${product.name}"
+		              style="width:200px;height:200px;">
+		          </div>
+		          <div class="flip-card-back">
+		            <h5 th:text="${product.name}"></h5>
+		            <h6 th:text="${product.gender}"></h6>
+		            <h6 th:text="${product.price} +' '+ мкд"></h6>
+		            <div class="img-hover-zoom img-hover-zoom--xyz">
+		              <a type="button" th:href="@{/delete/product/{id}(id=${product.id})}"><img alt="delete"
+		                  src="https://cdn.iconscout.com/icon/premium/png-256-thumb/trash-can-1778449-1515973.png"
+		                  style="width: 30px;height: 30px;"></a>
+		            </div>
+		            <form th:action="@{/addProduct/{id}(id=${product.id})}" th:object="${soldProduct}" method="post">
+		              <div id="parent">
+		                <div id="wide">
+		                  <select name="size" th:field="*{size}" id="inputGroupSelect01">
+		                    <option th:each="size :${product.sizes}" th:value="${size}" th:text="${size.displayValue}"></option>
+		                  </select>
+		                  <select name="color" th:field="*{color}" id="inputGroupSelect02">
+		                    <option th:each="color :${product.colors}" th:value="${color}" th:text="${color.displayValue}">
+		                    </option>
+		                  </select>
+		                </div>
+		                <div class="img-hover-zoom img-hover-zoom--xyz">
+		                  <button type="submit"><img alt="add to cart"
+		                      src="https://cdn0.iconfinder.com/data/icons/shopping-extras-set-1/512/1-512.png"
+		                      style="width: 30px;height: 30px;"></button>
+		                </div>
+		              </div>
+		            </form>
+		          </div>
+		        </div>
+		      </div>
+		   	 	
+		   	 
 		 </div>
-    </form>
-
-    <form action="/filterByCategory" method="get">
-      <div class="input-group mb-3">
-      <div class="input-group-prepend">
-      <label class="input-group-text" for="inputGroupSelect01">Category</label>
-      </div>
-        <select name="category" onchange="this.form.submit()" class="custom-select" id="inputGroupSelect01">
-          <option selected>Category...</option>
-          <option th:each="category : ${T(com.eCommerce.entity.Category).values()}" th:text="${category.displayValue}"
-            th:value="${category}"></option>
-        </select>
-      </div>
-    </form>
-
-
-
-    <div class="row">
-
-      <div class="flip-card" th:each="product : ${products}">
-
-        <div class="flip-card-inner">
-
-          <div class="flip-card-front">
-            <img th:src="*{'data:image/png;base64,'+{product.photoFront}}" alt="${product.name}"
-              style="width:200px;height:200px;">
-          </div>
-          <div class="flip-card-back">
-            <h5 th:text="${product.name}"></h5>
-            <h6 th:text="${product.gender}"></h6>
-            <h6 th:text="${product.price} +' '+ мкд"></h6>
-            <div class="img-hover-zoom img-hover-zoom--xyz">
-              <a type="button" th:href="@{/delete/product/{id}(id=${product.id})}"><img alt="delete"
-                  src="https://cdn.iconscout.com/icon/premium/png-256-thumb/trash-can-1778449-1515973.png"
-                  style="width: 30px;height: 30px;"></a>
-            </div>
-            <form th:action="@{/addProduct/{id}(id=${product.id})}" th:object="${soldProduct}" method="post">
-              <div id="parent">
-                <div id="wide">
-                  <select name="size" th:field="*{size}" id="inputGroupSelect01">
-                    <option th:each="size :${product.sizes}" th:value="${size}" th:text="${size.displayValue}"></option>
-                  </select>
-
-                  <select name="color" th:field="*{color}" id="inputGroupSelect02">
-                    <option th:each="color :${product.colors}" th:value="${color}" th:text="${color.displayValue}">
-                    </option>
-                  </select>
-                </div>
-
-                <div class="img-hover-zoom img-hover-zoom--xyz">
-                  <button type="submit"><img alt="add to cart"
-                      src="https://cdn0.iconfinder.com/data/icons/shopping-extras-set-1/512/1-512.png"
-                      style="width: 30px;height: 30px;"></button>
-                </div>
-              </div>
-            </form>
-            <!--       <h6 th:each="color :${product.colors}" th:text="${color.displayValue}"></h6> -->
-
-
-            <!--       <a type="button" class="btn btn-warning" th:href="@{/delete/product/{id}(id=${product.id})}"></a> -->
-            <!--       <a type="button" class="btn btn-warning" th:href="@{/add/product/{id}(id=${product.id})}">Add to cart</a> -->
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
-
+  
+</div>
+</div>
   <th:block th:insert="/fragments/header :: scripts"></th:block>
 </body>
 

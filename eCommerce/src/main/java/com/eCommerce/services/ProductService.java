@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -132,5 +135,17 @@ public class ProductService {
 		}
 		return total;
 		
+	}
+	
+public Page<Product> grid(Integer pageNumber, Integer pageSize,String gender, String category) {
+		
+		Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+		       if(gender != null ) {
+		          return	prodRepo.findByGender(gender, pageable);
+		    }else if(category != null ) {
+			      return	prodRepo.findByCategory(category, pageable);
+			}
+		          return prodRepo.findAll(pageable);
+	
 	}
 }

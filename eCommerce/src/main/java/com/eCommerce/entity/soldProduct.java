@@ -30,4 +30,5 @@ public class soldProduct {
 	private Color color;
 	@Enumerated(EnumType.STRING)
 	private Size size;
+	private Integer quantity;
 }
