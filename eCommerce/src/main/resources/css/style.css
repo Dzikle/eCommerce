@@ -6,7 +6,7 @@
 
 body {
   font: 14px/22px "Ubuntu", Arial, sans-serif;
-  background: white;
+/*   background: white; */
 }
 
 .lighter-text {
@@ -32,11 +32,11 @@ nav .navbar-right2 {
 nav a {
   display: inline;
   padding-left: 20px;
-  color: #777777;
+  color: rgb(192, 192, 192);
   text-decoration: none;
 }
 nav a:hover {
-  color: black;
+  color: rgb(233, 233, 233);
 }
 
 .navbar2 {
@@ -76,7 +76,7 @@ nav a:hover {
   border-radius: 3px;
   padding: 20px;
   overflow: hidden;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
+  box-shadow: 0 2px 5px 0 rgb(230, 230, 230) !important;
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
   opacity: 0;

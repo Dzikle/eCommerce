@@ -68,10 +68,12 @@
 		            <h5 th:text="${product.name}"></h5>
 		            <h6 th:text="${product.gender}"></h6>
 		            <h6 th:text="${product.price} +' '+ мкд"></h6>
+		           <div sec:authorize="hasRole('ROLE_ADMIN')">
 		            <div class="img-hover-zoom img-hover-zoom--xyz">
 		              <a type="button" th:href="@{/delete/product/{id}(id=${product.id})}"><img alt="delete"
 		                  src="https://cdn.iconscout.com/icon/premium/png-256-thumb/trash-can-1778449-1515973.png"
 		                  style="width: 30px;height: 30px;"></a>
+		            </div>
 		            </div>
 		            <form th:action="@{/addProduct/{id}(id=${product.id})}" th:object="${soldProduct}" method="post">
 		              <div id="parent">
@@ -87,7 +89,7 @@
 		                <div class="img-hover-zoom img-hover-zoom--xyz">
 		                  <button type="submit"><img alt="add to cart"
 		                      src="https://cdn0.iconfinder.com/data/icons/shopping-extras-set-1/512/1-512.png"
-		                      style="width: 30px;height: 30px;"></button>
+		                      style="width: 50px;height: 50px;"></button>
 		                </div>
 		              </div>
 		            </form>

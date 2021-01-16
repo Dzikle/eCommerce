@@ -16,10 +16,10 @@
 		<div class="form-group">
 		<form th:action="@{/save}" th:object="${product}" class="form-horizontal" method="post" enctype="multipart/form-data">
 				<div class="form-group">
-				<input type="text" th:field="*{name}" placeholder="Name">
+				<input required="required" type="text" th:field="*{name}" placeholder="Name">
 				</div>
 				<div class="form-group">
-				<input type="text" th:field="*{price}" placeholder="Price">
+				<input required="required" type="text" th:field="*{price}" placeholder="Price">
 				</div>
 				<div class="form-group">
 				<p>
@@ -27,7 +27,7 @@
 				<div class="input-group mb-3">
 				<div class="input-group-prepend">
    		 <label class="input-group-text" for="inputGroupSelect01">Colors</label>
-       		 <input type="checkbox" name="colors"
+       		 <input  type="checkbox" name="colors"
        		   		  th:each="colorOpt : ${T(com.eCommerce.entity.Color).values()}"
          		 	  th:text="${colorOpt.displayValue}"
        			 	    th:value="${colorOpt}"
@@ -38,7 +38,7 @@
   				 <div class="input-group mb-3">
   				 <div class="input-group-prepend">
   				<label class="input-group-text" for="inputGroupSelect01">Sizes</label>
-       		 <input type="checkbox" name="sizes"
+       		 <input  type="checkbox" name="sizes"
        		   		  th:each="sizeOpt : ${T(com.eCommerce.entity.Size).values()}"
          		 	  th:text="${sizeOpt.displayValue}"
        			 	    th:value="${sizeOpt}"
@@ -54,28 +54,28 @@
 				</div>
 				<div class="form-group">
 				<a> gender</a>
-				 <select name="gender" th:field="*{gender}">
+				 <select required="required" name="gender" th:field="*{gender}">
 					<option	th:each="gendeOpt : ${T(com.eCommerce.entity.Gender).values()}"th:value="${gendeOpt}" th:text="${gendeOpt.displayValue}"></option>
 				</select> 
 				</div>
 				<div class="form-group">
 				<a> Category</a>
-				 <select name="category" th:field="*{category}">
+				 <select required="required" name="category" th:field="*{category}">
 					<option	th:each="catOpt : ${T(com.eCommerce.entity.Category).values()}"th:value="${catOpt}" th:text="${catOpt.displayValue}"></option>
 				</select>
 				</div>
 				
 				<div class="form-group">
 					<label for="exampleFormControlFile1">Upload front image:</label> 
-					<input type="file"  name="file" class="form-control-file" id="exampleFormControlFile1">
+					<input required="required" type="file"  name="file" class="form-control-file" id="exampleFormControlFile1">
 				</div>
 				<div class="form-group">
 					<label for="exampleFormControlFile1">Upload back image:</label> 
-					<input type="file"  name="file1" class="form-control-file" id="exampleFormControlFile1">
+					<input required="required" type="file"  name="file1" class="form-control-file" id="exampleFormControlFile1">
 				</div>
 				<div class="form-group">
 					<label for="exampleFormControlFile1">Upload additional image:</label> 
-					<input type="file"  name="file2" class="form-control-file" id="exampleFormControlFile1">
+					<input required="required" type="file"  name="file2" class="form-control-file" id="exampleFormControlFile1">
 				</div>
 				
 

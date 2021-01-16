@@ -14,7 +14,7 @@
 <!-- partial:index.partial.html -->
 <nav>
         <div class="logo">
-            <img src="https://iconape.com/wp-content/png_logo_vector/unusual-logo.png" alt="Logo Image">
+            <img src="https://img.pngio.com/unique-icon-png-193001-free-icons-library-unusual-png-331_210.jpg" alt="Logo Image">
         </div>
         <div class="hamburger">
             <div class="line1"></div>
@@ -27,6 +27,7 @@
             <div class="dropdown-menu new" aria-labelledby="dropdownMenuLink">
     			<a class="dropdown-item" th:href="@{/products}">Products</a>
     			<a class="dropdown-item" href="#">Sale</a>
+    			<div sec:authorize="hasRole('ROLE_ADMIN')">
   				  <a class="dropdown-item" th:href="@{/product/create}">Create product</a>
   			</div>
             </li>
@@ -35,7 +36,7 @@
             <li><a th:if="${user!=null}" th:text="${user.firstName}"  class=" dropdown-toggle login-button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					  </a>
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					    <a class="dropdown-item" href="#">Cart</a>
+					    <a class="dropdown-item" th:href="@{/show/cart}">Cart</a>
 					    <a class="dropdown-item" th:href="@{/history}">Orders</a>
 					    <a class="dropdown-item" th:href="@{/logout}">Logout</a>
 					  </div>
@@ -48,12 +49,12 @@
 			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 			  <div class="modal-dialog modal-dialog-centered" role="document">
 			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
+<!-- 			      <div class="modal-header"> -->
+<!-- 			        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
+<!-- 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+<!-- 			          <span aria-hidden="true">&times;</span> -->
+<!-- 			        </button> -->
+<!-- 			      </div> -->
 			      <div class="modal-body">
 			        
 				  <div class="modal-body">
@@ -98,9 +99,9 @@
 			    </div>
 			  </div>
 			</div>
- </li>
+ 			</li>
             <li>
-            		<a href="#" th:if="${cart!=null && #maps.size(cart)!=null && #maps.size(cart)!=0}"  id="cart"  ><i class="fa fa-shopping-cart"></i> Cart <span th:text="${#maps.size(cart)}" class="badge"></span></a>
+          <a href="#" th:if="${cart!=null && #maps.size(cart)!=null && #maps.size(cart)!=0}"  id="cart"  ><i class="fa fa-shopping-cart"></i> Cart <span th:text="${#maps.size(cart)}" class="badge"></span></a>
       <div class="shopping-cart" >
         <div class="shopping-cart-header">
           <i class="fa fa-shopping-cart cart-icon"></i><span class="badge" th:if="${cart!=null && #maps.size(cart)!=null && #maps.size(cart)!=0}" th:text="${#maps.size(cart)}"></span>
