@@ -47,4 +47,6 @@ public class Product {
 	@Lob
 	@Column(name = "photoAd")
 	private String photoAd;
+	
+	
 }
