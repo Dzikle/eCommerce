@@ -14,7 +14,7 @@
 <!-- partial:index.partial.html -->
 <nav>
         <div class="logo">
-            <img src="https://img.pngio.com/unique-icon-png-193001-free-icons-library-unusual-png-331_210.jpg" alt="Logo Image">
+            <img src="https://webstockreview.net/images/royal-frame-png-10.png" alt="Logo Image">
         </div>
         <div class="hamburger">
             <div class="line1"></div>
@@ -35,6 +35,9 @@
             <li><a th:if="${user!=null}" th:text="${user.firstName}"  class=" dropdown-toggle login-button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					  </a>
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+					  <div sec:authorize="hasRole('ROLE_ADMIN')">
+					  	<a class="dropdown-item" th:href="@{/admin}">Admin Panel</a>
+					  	</div>
 					    <a class="dropdown-item" th:href="@{/show/cart}">Cart</a>
 					    <a class="dropdown-item" th:href="@{/history}">Orders</a>
 					    <a class="dropdown-item" th:href="@{/logout}">Logout</a>
@@ -124,47 +127,68 @@
     </nav>
     </header>
     
-    <th:block  th:fragment="footer">
+    <footer  th:fragment="footer">
     <div class="container">
   <div class="row">
+   <div class="col-sm-3">
+   <br>
+   <br>
+   <br>
    
-    <div class="col-sm">
+	<br>
+	<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  FOLLOW US ON:</p>
+	
+ 
+   </div>
+   
+    <div  class="col-sm-9">
     
       <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400');
 </style>
-<ul>
+<br>
+<br>
+<br>
+<br>
+
+<div class="ful">
+<ul >
   <li>
     <a href="#">
       <i class="fa fa-facebook" aria-hidden="true"></i>
-      <span> - Facebook</span>
+      <span></span>
     </a>
   </li>
   <li>
     <a href="#">
       <i class="fa fa-twitter" aria-hidden="true"></i>
-      <span> - Twitter</span>
+      <span></span>
     </a>
   </li>
   <li>
     <a href="#">
       <i class="fa fa-google-plus" aria-hidden="true"></i>
-      <span> - Google</span>
+      <span></span>
     </a>
   </li>
   <li>
     <a href="#">
       <i class="fa fa-instagram" aria-hidden="true"></i>
-      <span> - Instagram</span>
+      <span></span>
     </a>
   </li>
       
     </div>
   </div>
 </div>
+    <br>
+    <hr>
+     <p class="copyright-text">Copyright &copy; 2020 All Rights Reserved by 
+         <a href="#">CODE ACADEMY</a>.
+            </p>
+    </div>
     
-    
-    </th:block>
+    </footer>
     
     
     

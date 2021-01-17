@@ -31,7 +31,7 @@
 		      <div class="input-group-prepend">
 		      <label class="">Filter    by:</label>
 		      </div>
-		        <select  name="category" onchange="this.form.submit()" class="custom-select custom-select-lg mb-3" id="inputGroupSelect01">
+		        <select  name="category" onchange="this.form.submit()" class="custom-select custom-select-lg mb-3" >
 		          <option selected>Category...</option>
 		          <option th:each="category : ${T(com.eCommerce.entity.Category).values()}" th:text="${category.displayValue}"
 		            th:value="${category}"></option>

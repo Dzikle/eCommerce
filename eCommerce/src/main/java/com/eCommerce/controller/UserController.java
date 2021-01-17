@@ -2,6 +2,8 @@ package com.eCommerce.controller;
 
 
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eCommerce.entity.User;
 import com.eCommerce.repository.ProccessedCartRepository;
@@ -58,10 +62,19 @@ public class UserController {
 	}
 	
 	@PostMapping("/save/user")
-	public String saveUser(@ModelAttribute User user) {
+	public String saveUser(@ModelAttribute User user,RedirectAttributes redirAttrs) {
+		
+			
 		user.setRole(com.eCommerce.entity.RoleName.ROLE_USER);
 		userRepo.save(user);
+			redirAttrs.addFlashAttribute("error", "Product removed");
 		return"userForm";
+	}
+	@GetMapping("/napravi/me/admin")
+	public String saveAdmin(@AuthenticationPrincipal UsersDetails userD) {
+		userD.getUser().setRole(com.eCommerce.entity.RoleName.ROLE_ADMIN);
+		userRepo.save(userD.getUser());
+		return"redirect:/";
 	}
 	
 	@GetMapping("/login")

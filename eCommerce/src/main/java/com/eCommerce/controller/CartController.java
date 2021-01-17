@@ -70,16 +70,16 @@ public class CartController {
 		if (userD.getUser().getCart()!=null) {
 		ShoppingCart cart= userD.getUser().getCart();
 		model.addAttribute("cart", cart.getProduct());
-		model.addAttribute("user", userD.getUser());
 		model.addAttribute("total", prodServ.Total(cart));
 		}
+		model.addAttribute("user", userD.getUser());
 		model.addAttribute("proccesedShoppingCart", proccesedShoppingCart);
 		return"cartPage";
 	}
 	@PostMapping("/checkout")
 	public String checkout(@AuthenticationPrincipal UsersDetails userD,@ModelAttribute proccesedShoppingCart proCart,RedirectAttributes redirAttrs) {
 		ShoppingCart cart= userD.getUser().getCart();
-		if (!cart.getProduct().isEmpty()) {
+		if (cart!=null&&!cart.getProduct().isEmpty()) {
 		shopServ.proccessShoppingCart(userD.getUser(),cart,proCart);
 		cart.getProduct().clear();
 		shopRepo.save(cart);

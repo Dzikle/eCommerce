@@ -47,13 +47,16 @@ public class ProductController {
 
 	@GetMapping("product/create")
 	public String getProductForm(Model model, @AuthenticationPrincipal UsersDetails userD) {
-		
+		if (userD.getUser().getRole().toString().contains("ADMIN")) {
 		Product product = new Product();
 		model.addAttribute("product", product);
 		if(userD!=null){
 		model.addAttribute("user", userD.getUser());
 		}
 		return "ProductForm";
+		}else {
+			return "redirect:/products";
+		}
 	}
 
 	@PostMapping("/save")
