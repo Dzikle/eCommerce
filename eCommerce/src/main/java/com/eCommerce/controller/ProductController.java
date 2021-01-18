@@ -1,7 +1,6 @@
 package com.eCommerce.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,47 +121,25 @@ public class ProductController {
 		return "productsList";
 	}
 	
-	@GetMapping("/products2")
-	  public String viewProductPageInGrid(Model model,
-			@Param("search")String gender,
-			@Param("pid")String category) {
-		
-		
-		gridDetails(model, 1,gender,category);
-		
-		       return "productGrid";
+	@GetMapping("/products/grid")
+	public String productGrid(Model model) {
+		return listByPage(model, 1);
 	}
 	
-	   @GetMapping("/pag/{pagNum}")
-	   public String gridDetails( Model model ,@PathVariable("pagNum") Integer pagNum,
-			@Param("gender")String gender,
-			@Param("category")String category) {
-		
-      
-//      List<Product> listProducts = new ArrayList<>();
-      
- 
-	    Integer pageSize = 4;
-	    
-	    Page<Product>pag = prodServ.grid(pagNum, pageSize,gender,category);
-	    
-	    List<Product> listProducts = pag.getContent();
-	    
-//	    for (Product product2 : listProductss) {
-//	    	if(product2.getAvailableQty()> 0) {
-//	    		
-//	   		listProducts.add(product2);
-//	     	}
-//	     }
-	 
-		  model.addAttribute("listProducts", listProducts);
-	   	  model.addAttribute("currentPage",pagNum);
-		  model.addAttribute("totalPages", pag.getTotalPages());
-		  model.addAttribute("totalItems", pag.getTotalElements());
-		  model.addAttribute("gender", gender);
-		  model.addAttribute("category", category);
-		
-		       return "productGrid";
+	@GetMapping("/pag/{pageNumber}")
+	public String listByPage(Model model,@PathVariable("pageNumber")int currentPage ) {
+		Page<Product> page = prodServ.listAll(currentPage);
+		long totalItems = page.getTotalElements();
+		int totalPages = page.getTotalPages();
+		List<Product> listProducts = page.getContent();
+		model.addAttribute("listProducts", listProducts);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("totalItems", totalItems);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("page", page);
+		return "productGrid";
 	}
+	
+	
 	
 }

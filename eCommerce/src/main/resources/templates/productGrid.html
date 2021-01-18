@@ -8,14 +8,52 @@
 </head>
 <body>
     <div th:insert="/fragments/header :: header"></div>
+    <div class="container">
+    <table class="table table-striped">
+    <thead>
+    <th>Name</th>
+    <th>Color</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    
+    </thead>
+    <tbody>
+     <tr th:each="product : ${listProducts}">
+        <td th:text="${product.name}"></td> 
+
+		<td>
+		<select name="size"  id="inputGroupSelect01">
+		 <option th:each="size :${product.sizes}" th:value="${size}" th:text="${size.displayValue}"></option>
+		</select>
+	    </td>
+		 <td>
+		  <select name="color"  id="inputGroupSelect02">
+		 <option th:each="color :${product.colors}" th:value="${color}" th:text="${color.displayValue}">
+		  </option>
+		  </select>
+		</td>
+	     <td th:text="${product.price}+' mkd'"></td>
+<!-- 	     <td  th:text="${product.value}"></td> -->
+          <td >
+           <div class="img-hover-zoom img-hover-zoom--xyz">
+           <img th:src="*{'data:image/png;base64,'+{product.photoFront}}" alt="${product.name}" style="width:80px;height:80px;">
+           </div>
+          </td>
+    </tr>
+    
+    </tbody>
+    </table>
+    
+    
     
     
     
     
     
      <div class = "row col-sm-10">
-     <div class = "row col-sm-2">
-     Total Rows: [[${totalItems}]]
+     <div class = "row col-sm-4">
+     Total Products: [[${totalItems}]]
      </div>
      
      

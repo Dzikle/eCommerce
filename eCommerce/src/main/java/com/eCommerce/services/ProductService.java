@@ -18,6 +18,7 @@ import com.eCommerce.entity.ShoppingCart;
 import com.eCommerce.entity.User;
 import com.eCommerce.entity.soldProduct;
 import com.eCommerce.repository.ProductRepository;
+import com.eCommerce.repository.ProductRepositoryPaging;
 import com.eCommerce.repository.ShoppingCartRepository;
 import com.eCommerce.repository.SoldProductRepository;
 import com.eCommerce.repository.UserRepository;
@@ -36,6 +37,9 @@ public class ProductService {
 	
 	@Autowired
 	SoldProductRepository soldProdRepo;
+	
+	@Autowired
+	ProductRepositoryPaging prodPageRepo;
 
 	public void AddProduct(Integer id, User user) {
 		soldProduct product = soldProdRepo.findById(id).get();
@@ -136,16 +140,9 @@ public class ProductService {
 		return total;
 		
 	}
-	
-public Page<Product> grid(Integer pageNumber, Integer pageSize,String gender, String category) {
-		
-		Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
-		       if(gender != null ) {
-		          return	prodRepo.findByGender(gender, pageable);
-		    }else if(category != null ) {
-			      return	prodRepo.findByCategory(category, pageable);
-			}
-		          return prodRepo.findAll(pageable);
-	
+	public Page<Product> listAll(int pageNumber){
+		Pageable pageable = PageRequest.of(pageNumber-1, 4);
+		return prodPageRepo.findAll(pageable);
 	}
+
 }
