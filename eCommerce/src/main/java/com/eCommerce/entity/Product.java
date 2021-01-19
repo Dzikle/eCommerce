@@ -26,6 +26,7 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	private String name;
 
 	@Enumerated
@@ -36,7 +37,7 @@ public class Product {
 	private EnumSet<Color> colors;
 	@MapKeyEnumerated(EnumType.STRING)
 	private EnumSet<Size> sizes;
-	
+
 	private Integer price;
 	@Lob
 	@Column(name = "photoFront")
@@ -48,5 +49,7 @@ public class Product {
 	@Column(name = "photoAd")
 	private String photoAd;
 	
+	private boolean stock = true;
+
 	
 }

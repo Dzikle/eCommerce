@@ -68,11 +68,18 @@ public class ProductController {
 		}
 		return "redirect:product/create";
 	}
-	@GetMapping
-	public String updateProduct(Model model, @Param(value = "product") Product product) {
+	@GetMapping("/products/update/{id}")
+	public String updateProduct(Model model,  @PathVariable Integer id) {
+		Product product = prodRepo.findById(id).get();
+		model.addAttribute("product", product);
+		return "UpdateProduct";
+	}@PostMapping("/product/update/{id}")
+	public String updatePet(@ModelAttribute Product product, @PathVariable Integer id) {
 		prodRepo.save(product);
-		return "updateForm";
+		return "redirect:/products";
 	}
+	
+	
 	@GetMapping("/products")
 	public String productList(Model model, @AuthenticationPrincipal UsersDetails userD) {
 		model.addAttribute("products", prodRepo.findAll());
@@ -122,21 +129,31 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products/grid")
-	public String productGrid(Model model) {
-		return listByPage(model, 1);
+	public String productGrid(Model model,@Param("search") String search) {
+		return listByPage(model, 1,"price","asc", search);
 	}
 	
 	@GetMapping("/pag/{pageNumber}")
-	public String listByPage(Model model,@PathVariable("pageNumber")int currentPage ) {
-		Page<Product> page = prodServ.listAll(currentPage);
+	public String listByPage(Model model,@PathVariable("pageNumber")int currentPage,
+			@Param("sortField") String sortField,
+			@Param("sortDir") String sortDir,
+			@Param("search") String search) {
+		
+		Page<Product> page = prodServ.listAll(currentPage,sortField,sortDir, search);
 		long totalItems = page.getTotalElements();
 		int totalPages = page.getTotalPages();
 		List<Product> listProducts = page.getContent();
+		
+		model.addAttribute("listProducts", listProducts);
+		model.addAttribute("sortDir", sortDir);
+		String revsortDir = sortDir.equals("asc") ? "desc" : "asc";
+		model.addAttribute("revsortDir", revsortDir);
 		model.addAttribute("listProducts", listProducts);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("totalItems", totalItems);
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("page", page);
+		model.addAttribute("search", search);
 		return "productGrid";
 	}
 	

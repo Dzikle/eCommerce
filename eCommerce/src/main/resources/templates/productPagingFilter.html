@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div th:insert="/fragments/header :: head"></div>
+<title>Unusual</title>
+
+</head>
+<body>
+	<div th:insert="/fragments/header :: header"></div>
+
+
+<div class="container">
+
+<div class="row">
+    <div class="col-2">
+     <form th:action="@{/products}">
+       <input type="hidden" name="sortField" th:value="${sortField}" />
+       <input type="hidden" name="sortDir" th:value="${sortDir}" />
+  
+   <div class="form-group">
+      <div class="form-row align-items-left">
+        <label >Keyword</label>
+        <div class="col-sm-10">
+          <input placeholder="Enter Keyword" class="form-control" name="search" size="30"
+            maxlength="80" /> 
+        </div>
+      </div>
+    </div>
+       <div class="col-auto my-1">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+   
+    <a th:href="@{/products}">Clear </a>
+    <br> <br>
+ </form>
+
+<form th:action="@{/products}">
+    <div class="form-row align-items-center">
+    <div class="col-auto my-1">
+      <label class="mr-sm-2" for="inlineFormCustomSelect">Select Category </label>
+      <select  name="pid"  class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+        
+        <option th:each="category : ${categories}"
+        th:value="${category.id}"
+        th:text="${category.productCategory}"/>
+      </select>
+    </div>
+    <div class="col-auto my-1">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </div>
+</form>
+<br>
+<form th:action="@{/products}">
+    <div class="form-row align-items-center">
+    <div class="col-auto my-1">
+      <label class="mr-sm-2" for="inlineFormCustomSelect">Select Brand </label>
+      <select  name="mid"  class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+        
+        <option th:each="man : ${brends}"
+        th:value="${man.id}"
+        th:text="${man.manufacturerName}"/>
+      </select>
+    </div>
+    <div class="col-auto my-1">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </div>
+</form>
+<br>
+<form th:action="@{/products}">
+    <div class="form-row align-items-center">
+    <div class="col-auto my-1">
+      <label class="mr-sm-2" for="inlineFormCustomSelect">Select Origin </label>
+      <select  name="cid"  class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+        
+        <option th:each="country : ${countries}"
+        th:value="${country.id}"
+        th:text="${country.countryName}"/>
+      </select>
+    </div>
+    <div class="col-auto my-1">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </div>
+</form>
+<br>
+<form th:action="@{/products}">
+    <div class="form-row align-items-center">
+    <div class="col-auto my-1">
+      <label class="mr-sm-2" for="inlineFormCustomSelect">Select Store </label>
+      <select  name="sid"  class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+        
+        <option th:each="store : ${stores}"
+        th:value="${store.id}"
+        th:text="${store.storeName}"/>
+      </select>
+    </div>
+    <div class="col-auto my-1">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </div>
+</form>
+<br>
+</div>
+
+<div class="col-10">
+ <div class="row">
+  <div class="col-xl-3" th:each="product : ${listProducts}">
+   <div class="card" style="width: 14rem;">
+    <img th:src="*{'data:image/png;base64,'+{product.image}}" style="width:220px" >
+     <div class="card-body">
+      <p class="card-title" th:text = "${product.productName}"></p>
+      <hr>
+      <p class="card-text" th:text = "${product.productPrice}"></p>
+      <p class="card-text" th:text = "${product.store.storeName}"></p>
+    
+       <a th:href="@{/products/productDetails/{id}(id=${product.id})}" class="btn btn-primary btn-sm">Details</a>
+      <div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+      <a th:href="@{/shoppingCart/{id}(id=${product.id})}" class="btn btn-success btn-sm">Add to Cart</a>
+      </div>
+      
+       <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <a th:href="@{/showUpdateProductForm/{id}(id=${product.id})}" class="btn btn-outline-success">Update</a>
+        <a th:href="@{/deleteProduct/{id}(id=${product.id})}" class="btn btn-outline-danger">Delete</a> 
+       </div>
+
+    </div>
+   </div>
+  </div>
+ </div>
+ 
+  <hr>
+ 
+ <div th:if = "${totalPages > 1}">
+ 
+    <div class = "row col-sm-10">
+     <div class = "row col-sm-2">
+     Total Rows: [[${totalItems}]]
+     </div>
+     
+     
+     <div class = "row col-sm-2">
+        <a th:if="${currentPage > 1}" th:href="@{'/pag/' + ${currentPage - 1}+ ${search != null ? '?search=' + search : ' ' }+ ${pid != null ? '?pid=' + pid : ' ' }+ ${mid != null ? '?mid=' + mid : ' ' }+ ${cid != null ? '?cid=' + cid : ' ' }+ ${sid != null ? '?sid=' + sid : ' ' }}">Previous</a>
+<span th:unless="${currentPage > 1}">Previous</span>
+        
+     
+     </div>
+     
+     <div class = "row col-sm-2">
+        <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+           <a th:if="${currentPage != i}" th:href = "@{'/pag/' + ${i}+ ${search != null ? '?search=' + search : ' ' }+ ${pid != null ? '?pid=' + pid : ' ' }+ ${mid != null ? '?mid=' + mid : ' ' }+ ${cid != null ? '?cid=' + cid : ' ' }+ ${sid != null ? '?sid=' + sid : ' ' }}">[[${i}]]</a>
+           <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+        </span>
+     
+     </div>
+     
+     <div class = "row col-sm-2">
+     
+     <a th:if="${currentPage < totalPages}" th:href="@{'/pag/' + ${currentPage + 1} + ${search != null ? '?search=' + search : ' ' }+ ${pid != null ? '?pid=' + pid : ' ' }+ ${mid != null ? '?mid=' + mid : ' ' }+ ${cid != null ? '?cid=' + cid : ' ' }+ ${sid != null ? '?sid=' + sid : ' ' }}">Next</a>
+         <span th:unless="${currentPage < totalPages}">Next</span> &nbsp; &nbsp;
+     </div>
+     
+      <div class = "row col-sm-2">
+     
+     <a th:if="${currentPage < totalPages}" th:href="@{'/pag/' + ${totalPages}+ ${search != null ? '?search=' + search : ' ' }+ ${pid != null ? '?pid=' + pid : ' ' }+ ${mid != null ? '?mid=' + mid : ' ' }+ ${cid != null ? '?cid=' + cid : ' ' }+ ${sid != null ? '?sid=' + sid : ' ' }}">Last</a>
+         <span th:unless="${currentPage < totalPages}">Last</span> &nbsp; &nbsp;
+         </div>
+        </div>
+       </div >
+     </div>
+   </div>
+   
+   <th:block th:insert="/fragments/header :: footer"></th:block>
+
+
+
+
+	<th:block th:insert="/fragments/header :: scripts"></th:block>
+</body>
+</html>

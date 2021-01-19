@@ -58,7 +58,7 @@
 		
 		
 		   
-		    		  <div class="flip-card" th:each="product : ${products}">
+		    		  <div class="flip-card" th:each="product : ${products}" th:if="${product.stock==true}">
 		        <div class="flip-card-inner">
 		          <div class="flip-card-front">
 		            <img th:src="*{'data:image/png;base64,'+{product.photoFront}}" alt="${product.name}"
@@ -69,6 +69,7 @@
 		            <h6 th:text="${product.gender}"></h6>
 		            <h6 th:text="${product.price} +' '+ мкд"></h6>
 		           <div sec:authorize="hasRole('ROLE_ADMIN')">
+		           <a th:href="@{/products/update/{id}(id=${product.id})}"><h6>UPDATE</h6></a>
 		            <div class="img-hover-zoom img-hover-zoom--xyz">
 		              <a type="button" th:href="@{/delete/product/{id}(id=${product.id})}"><img alt="delete"
 		                  src="https://cdn.iconscout.com/icon/premium/png-256-thumb/trash-can-1778449-1515973.png"
