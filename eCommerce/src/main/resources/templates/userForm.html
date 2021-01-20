@@ -12,7 +12,12 @@
 
 	<div th:insert="/fragments/header :: header"></div>
 	
-	<h1>CREATE USER</h1>
+	<div class="container">
+	<div class="row">
+	<div class="col-sm-6">
+	<br>
+				<br>
+	<h1>REGISTER</h1>
  <div th:if="${param.success}">
      <div class="alert alert-info">You've successfully registered !!!</div>
     </div>
@@ -23,37 +28,51 @@
 	 <div class="list-group-item list-group-item-success" role="alert" th:text="${error}" th:if="${error}"></div>
 		<div class="form-group">
 		<form th:action="@{/signUpForm}" th:object="${user}" class="form-horizontal" method="post" enctype="multipart/form-data">
-				<div class="form-group">
+				
+				<div class="form-group-row">
 				<input type="text" th:field="*{firstName}" placeholder="First Name">
+				</div>
+				<div class="form-group-row">
 				<input type="text" th:field="*{lastName}" placeholder="Last Name">
 				</div>
-				<div class="form-group">
+				<div class="form-group-row">
 				<input type="password" th:field="*{password}" placeholder="Password">
 				</div>
-				<div class="form-group">
+				<div class="form-group-row">
 				<input type="email" th:field="*{email}" placeholder="Email">
 				</div>
-				<div class="form-group">
-				<label>City</label>
+				
+				<div class="form-group-row">
+				<h1>Address</h1>
+				</div>
+				
+				<div class="form-group-row">
 				<input type="text" th:field="*{address.city}" placeholder="City">
-				<label>Street</label>
+				</div>
+				<div class="form-group-row">
+				
 				<input type="text" th:field="*{address.street}" placeholder="Street">
-				<label>Zip</label>
+				</div>
+				<div class="form-group-row">
 				<input type="text" th:field="*{address.zip}" placeholder="Zip">
-				<label>Country</label>
+				</div>
+				<div class="form-group-row">
 				<input type="text" th:field="*{address.country}" placeholder="Country">
 				</div>
-			
-				
-
-						<button type="submit" class="btn btn-info col-2">Save User</button>
-
-
+				<br>
+				<div class="form-group-row">
+						<button type="submit" class="btn btn-secondary col-2">Register</button>
+				</div>
 		</form>
 </div>
+</div>
+	<div class="col-sm-6">
+	
+	<img alt="Logo" src="https://www.ellenmacarthurfoundation.org/assets/images/Deep-Dives/Fashion-MFC-logo-850px.png" style="height: 440px;width: 440px;">
+	
+	</div>
 
-
-
+</div>
 
 	</div>
 

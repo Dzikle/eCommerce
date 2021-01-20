@@ -83,6 +83,7 @@ public class CartController {
 		shopServ.proccessShoppingCart(userD.getUser(),cart,proCart);
 		cart.getProduct().clear();
 		shopRepo.save(cart);
+		redirAttrs.addFlashAttribute("checkout", "Congratulation, your purchase is being finished and will be proccesed");
 		}else {
 			redirAttrs.addFlashAttribute("error", "Choose product first!");
 		}

@@ -6,11 +6,15 @@
 
 body {
   font: 14px/22px "Ubuntu", Arial, sans-serif;
+  background-image: url("https://www.ellenmacarthurfoundation.org/assets/images/Deep-Dives/Fashion-MFC-logo-850px.png");
 /*   background: white; */
 }
 
 .lighter-text {
   color: #ABB0BE;
+}
+#h1{
+	font-size: 60px;
 }
 
 .main-color-text {

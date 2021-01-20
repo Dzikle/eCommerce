@@ -22,6 +22,7 @@
 
         <div class="list-group-item list-group-item-success" role="alert" th:text="${success}" th:if="${success}"></div>
          <div class="list-group-item list-group-item-success" role="alert" th:text="${error}" th:if="${error}"></div>
+         <div class="list-group-item list-group-item-success" role="alert" th:text="${checkout}" th:if="${checkout}"></div>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -136,7 +137,7 @@
   </div>
 
 
-	
+	<th:block th:insert="/fragments/header :: footer"></th:block>
       <th:block th:insert="/fragments/header :: scripts"></th:block>
   </body>
 
