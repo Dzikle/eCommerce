@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div th:insert="/fragments/header :: head"></div>
+    <title>Document</title>
+</head>
+<body>
+    <div th:insert="/fragments/header :: header"></div>
+    
+    <div class="container">
+    	<div class="row">
+	    	<div class="col-sm-8">
+	    	<table class="table table-striped">
+	    		<thead>
+		    		<th scope="col">Name</th>
+		    		<th scope="col">Role</th>
+		    		<th scope="col">City</th>
+	    		</thead>
+	    		<tbody th:each="userD:${userList}">
+			    	<td th:text="${userD.firstName}+' '+${user.lastName}"></td>
+			    	<td th:text="${userD.role.displayValue}"></td>
+			    	<td th:text="${userD.address.city}"></td>
+			    	<td><a class="btn btn-secondary" th:if="${user.id}!=${userD.id}" th:href="@{/delete/user/{id} (id = ${userD.id})}">Delete</a></td>
+	    		</tbody>
+	    	</table>
+	    	</div>
+	    	<div class="col-sm-4">
+	    	<br>
+	    	<br>
+	    		<a class="btn btn-secondary" th:href="@{/product/create}">Create product</a>
+	    	</div>
+    	</div>
+    </div>
+    
+    
+    
+    
+    
+    <th:block th:insert="/fragments/header :: footer"></th:block>
+    <th:block th:insert="/fragments/header :: scripts"></th:block>
+</body>
+</html>

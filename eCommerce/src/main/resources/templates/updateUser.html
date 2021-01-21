@@ -17,51 +17,49 @@
 	<div class="col-sm-6">
 	<br>
 				<br>
-	<h1 class="display-3">Register User</h1>
+	<h1 class="display-3">Update User</h1>
 	<br>
  <div th:if="${param.success}">
-     <div class="alert alert-info">You've successfully registered !!!&nbsp;&nbsp;&nbsp;<a class="btn btn-info" th:href="@{/login}">Sign in</a></div>
-     <br>
+     <div class="alert alert-info">You've successfully updated your profile !!!</div>
     </div>
      <div th:if="${param.error}">
       <div class="alert alert-danger">Invalid Email.</div>
      </div>
+     <div class="list-group-item list-group-item-success" role="alert" th:text="${success}" th:if="${success}"></div>
+	 <div class="list-group-item list-group-item-success" role="alert" th:text="${error}" th:if="${error}"></div>
 		<div class="form-group">
-		<form th:action="@{/signUpForm}" th:object="${user}" class="form-horizontal" method="post" enctype="multipart/form-data">
+		<form th:action="@{/update/user}" th:object="${user}" class="form-horizontal" method="post" enctype="multipart/form-data">
 				
 				<div class="form-group-row">
-				<input type="text" th:field="*{firstName}" placeholder="First Name">
+				<input type="hidden" th:field="*{id}" th:value="${user.id}">
+				<input type="text" th:field="*{firstName}" placeholder="${user.firstName}">
 				</div>
 				<div class="form-group-row">
-				<input type="text" th:field="*{lastName}" placeholder="Last Name">
+				<input type="text" th:field="*{lastName}" placeholder="${user.lastName}">
 				</div>
 				<div class="form-group-row">
-				<input type="password" th:field="*{password}" placeholder="Password">
+				<input type="email" th:field="*{email}" placeholder="${user.email}">
 				</div>
-				<div class="form-group-row">
-				<input type="email" th:field="*{email}" placeholder="Email">
-				</div>
-				
 				<div class="form-group-row"><br>
 				<h1 class="display-5">Address</h1>
 				</div>
 				<br>
 				<div class="form-group-row">
-				<input type="text" th:field="*{address.city}" placeholder="City">
+				<input type="text" th:field="*{address.city}" placeholder="${user.address.city}">
 				</div>
 				<div class="form-group-row">
 				
-				<input type="text" th:field="*{address.street}" placeholder="Street">
+				<input type="text" th:field="*{address.street}" placeholder="${user.address.street}">
 				</div>
 				<div class="form-group-row">
-				<input type="text" th:field="*{address.zip}" placeholder="Zip">
+				<input type="text" th:field="*{address.zip}" placeholder="${user.address.zip}">
 				</div>
 				<div class="form-group-row">
-				<input type="text" th:field="*{address.country}" placeholder="Country">
+				<input type="text" th:field="*{address.country}" placeholder="user.address.country">
 				</div>
 				<br>
 				<div class="form-group-row">
-						<button type="submit" class="btn btn-secondary col-2">Register</button>
+						<button type="submit" class="btn btn-secondary col-2">Update</button>
 				</div>
 		</form>
 </div>

@@ -17,7 +17,7 @@
 
 <div th:insert="/fragments/header :: header"></div>
 	
-	
+	<br>
   <div class="container">
 	  <div class="list-group-item list-group-item-success" role="alert" th:text="${success}" th:if="${success}"></div>
 
@@ -29,16 +29,16 @@
 		  <form action="/filterByCategory" method="get">
 		      <div class="input-group mb-3">
 		      <div class="input-group-prepend">
-		      <label class="">Filter    by:</label>
+		      <label class="">Filter    by:&nbsp;&nbsp;&nbsp;</label>
 		      </div>
-		        <select  name="category" onchange="this.form.submit()" class="custom-select custom-select-lg mb-3" >
+		        <select   name="category" onchange="this.form.submit()" class="custom-select custom-select-lg mb-3" >
 		          <option selected>Category...</option>
 		          <option th:each="category : ${T(com.eCommerce.entity.Category).values()}" th:text="${category.displayValue}"
 		            th:value="${category}"></option>
 		        </select>
 		      </div>
 		    </form>
-		  
+		  &nbsp;&nbsp;&nbsp;
 		    <form action="/filterByGernder" method="get">
 		      <div class="input-group mb-3">
 		        <select name="gender" onchange="this.form.submit()" class="custom-select" id="inputGroupSelect01">
@@ -87,11 +87,9 @@
 		                    </option>
 		                  </select>
 		                </div>
-		                <div class="img-hover-zoom img-hover-zoom--xyz">
 		                  <button type="submit"><img alt="add to cart"
 		                      src="https://cdn0.iconfinder.com/data/icons/shopping-extras-set-1/512/1-512.png"
 		                      style="width: 50px;height: 50px;"></button>
-		                </div>
 		              </div>
 		            </form>
 		          </div>
@@ -103,6 +101,7 @@
   
 </div>
 </div>
+<th:block th:insert="/fragments/header :: footer"></th:block>
   <th:block th:insert="/fragments/header :: scripts"></th:block>
 </body>
 

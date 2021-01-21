@@ -26,8 +26,10 @@
             <li><a class=" dropdown-toggle"  role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
             <div class="dropdown-menu new" aria-labelledby="dropdownMenuLink">
     			<a class="dropdown-item" th:href="@{/products}">Products</a>
-    			<a class="dropdown-item" href="#">Sale</a>
+    			<a class="dropdown-item disabled" href="#">Sale</a>
     			<div sec:authorize="hasRole('ROLE_ADMIN')">
+    			<a class="dropdown-item" th:href="@{/products/grid}">Products Table</a>
+    			
   				  <a class="dropdown-item" th:href="@{/product/create}">Create product</a>
   			</div>
             </li>
@@ -38,6 +40,7 @@
 					  <div sec:authorize="hasRole('ROLE_ADMIN')">
 					  	<a class="dropdown-item" th:href="@{/admin}">Admin Panel</a>
 					  	</div>
+					  	 <a class="dropdown-item" th:href="@{/update/form}">Update profile</a>
 					    <a class="dropdown-item" th:href="@{/show/cart}">Cart</a>
 					    <a class="dropdown-item" th:href="@{/history}">Orders</a>
 					    <a class="dropdown-item" th:href="@{/logout}">Logout</a>
