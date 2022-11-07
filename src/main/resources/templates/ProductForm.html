@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div th:insert="/fragments/header :: head"></div>
+<title>Create Product</title>
+</head>
+
+<body>
+<div th:insert="/fragments/header :: header"></div>
+<div class="container">
+<h1 class="display-3">Create Product</h1>
+<br></div>
+		<div class="form-group">
+		<form th:action="@{/save}" th:object="${product}" class="form-horizontal" method="post" enctype="multipart/form-data">
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+				<div class="form-group-row">
+				<input required="required" type="text" th:field="*{name}" placeholder="Product Name">
+				</div>
+				<br>
+				<div class="form-group-row">
+				<input required="required" type="text" th:field="*{price}" placeholder="Price">
+				</div><br>
+				<div class="form-group">
+				<a> Gender</a>
+				 <select required="required" name="gender" th:field="*{gender}">
+					<option	th:each="gendeOpt : ${T(com.eCommerce.entity.Gender).values()}"th:value="${gendeOpt}" th:text="${gendeOpt.displayValue}"></option>
+				</select> 
+				</div><br>
+				<div class="form-group">
+				<a> Category</a>
+				 <select required="required" name="category" th:field="*{category}">
+					<option	th:each="catOpt : ${T(com.eCommerce.entity.Category).values()}"th:value="${catOpt}" th:text="${catOpt.displayValue}"></option>
+				</select>
+				</div><br>
+				<span>Choose Photos</span>
+				<div class="form-group">
+					<input  type="file"  name="file" class="form-control-file" id="exampleFormControlFile1">
+				</div>
+				<div class="form-group">
+					<input  type="file"  name="file1" class="form-control-file" id="exampleFormControlFile1">
+				</div>
+				<div class="form-group">
+					<input  type="file"  name="file2" class="form-control-file" id="exampleFormControlFile1">
+				</div>
+				
+						<br>
+						<button type="submit" class="btn btn-secondary col-5">Save Product</button>
+
+
+    </div>
+    <div class="col-sm-8">
+     <div class="form-group-row">
+				<div class="form-group-row">
+				<div class="input-group mb-3">
+				<div class="input-group-prepend">
+   				 <label class="input-group-text" for="inputGroupSelect01">Colors</label>
+       				 <input  type="checkbox" name="colors"
+       		   		  th:each="colorOpt : ${T(com.eCommerce.entity.Color).values()}"
+         		 	  th:text="${colorOpt.displayValue}"
+       			 	    th:value="${colorOpt}"
+        		 	   th:field="*{colors}" />
+  				 </div>
+  				 </div>
+  				 </div>
+  				 <br>
+  				 <div class="input-group mb-3">
+  				 <div class="input-group-prepend">
+  				<label class="input-group-text" for="inputGroupSelect01">Sizes</label>
+       		 <input  type="checkbox" name="sizes"
+       		   		  th:each="sizeOpt : ${T(com.eCommerce.entity.Size).values()}"
+         		 	  th:text="${sizeOpt.displayValue}"
+       			 	    th:value="${sizeOpt}"
+        		 	   th:field="*{sizes}" />
+  				 </div>
+  				 </div>
+				</div>
+    </div>
+		</div>
+  </div>
+</div>
+				</form>
+
+
+<th:block th:insert="/fragments/header :: footer"></th:block>
+<th:block th:insert="/fragments/header :: scripts"></th:block>
+
+</body>
+
+</html>
