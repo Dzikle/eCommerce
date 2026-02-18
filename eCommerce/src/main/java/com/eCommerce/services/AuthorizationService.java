@@ -27,7 +27,7 @@ public class AuthorizationService {
         
         return authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
-                .anyMatch(authority -> authority.equals("ROLE_" + roleName.name().replace("ROLE_", "")));
+                .anyMatch(authority -> authority.equals(roleName.name()));
     }
 
     /**
