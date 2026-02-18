@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,20 +45,18 @@ public class ProductController {
 	@Autowired
 	ShoppingCartRepository shopRepo;
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("product/create")
 	public String getProductForm(Model model, @AuthenticationPrincipal UsersDetails userD) {
-		if (userD.getUser().getRole().toString().contains("ADMIN")) {
-			Product product = new Product();
-			model.addAttribute("product", product);
-			if (userD != null) {
-				model.addAttribute("user", userD.getUser());
-			}
-			return "ProductForm";
-		} else {
-			return "redirect:/products";
+		Product product = new Product();
+		model.addAttribute("product", product);
+		if (userD != null) {
+			model.addAttribute("user", userD.getUser());
 		}
+		return "ProductForm";
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/save")
 	public String saveProduct(@ModelAttribute Product product, MultipartFile file, MultipartFile file1,
 			MultipartFile file2) {
@@ -69,6 +68,7 @@ public class ProductController {
 		return "redirect:product/create";
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/products/update/{id}")
 	public String updateProduct(Model model, @PathVariable Integer id) {
 		Product product = prodRepo.findById(id).get();
@@ -76,6 +76,7 @@ public class ProductController {
 		return "UpdateProduct";
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/product/update/{id}")
 	public String updatePet(@ModelAttribute Product product, @PathVariable Integer id) {
 		prodRepo.save(product);
@@ -97,6 +98,7 @@ public class ProductController {
 		return "productsList";
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/delete/product/{id}")
 	public String deleteProduct(@PathVariable("id") Integer id) {
 //		soldProduct soldProduct = soldProd.findByProduct(prodRepo.findById(id));
