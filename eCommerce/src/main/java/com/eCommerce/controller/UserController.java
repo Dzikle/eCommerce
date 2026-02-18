@@ -5,6 +5,7 @@ package com.eCommerce.controller;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -84,13 +85,8 @@ public class UserController {
 	}
 	
 	
-	@GetMapping("/napravi/me/admin")
-	public String saveAdmin(@AuthenticationPrincipal UsersDetails userD) {
-		userD.getUser().setRole(com.eCommerce.entity.RoleName.ROLE_ADMIN);
-		userRepo.save(userD.getUser());
-		return"redirect:/";
-	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/admin")
 	public String adminPanel(@AuthenticationPrincipal UsersDetails userD,Model model) {
 		
@@ -98,6 +94,8 @@ public class UserController {
 		model.addAttribute("user", userD.getUser());
 		return "adminPanel";
 	}
+	
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/delete/user/{id}")
 	public String deleteUser(@PathVariable Integer id) {
 			userRepo.deleteById(id);
